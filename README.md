@@ -2,10 +2,10 @@
 
 ## Indice
 
-* [Empleados](##-Empleados)
-* [Comida](##-Comida)
-* [Mesas](##-Mesa)
-* [Transacciones](##-Transacción)
+* [Empleados](#Empleados)
+* [Comida](#Comida)
+* [Mesas](#Mesa)
+* [Transacciones](#Transacción)
 
 ## Empleados
 
