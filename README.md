@@ -9,7 +9,7 @@
 
 ## Empleados
 
-[↑](##Indice)
+[↑](#Indice)
 
 ```c
 typedef enum {Mesero, Cajero, Manager, Owner} Rol;
@@ -38,7 +38,7 @@ typedef struct {
 
 ## Comida
 
-[↑](##Indice)
+[↑](#Indice)
 
 ```c
 typedef enum {Entrada, Plato_principal, Postre, Bebida} ComidaTipo;
@@ -56,7 +56,7 @@ typedef struct {
 
 ## Mesa
 
-[↑](##Indice)
+[↑](#Indice)
 
 ```c
 typedef struct {
@@ -72,7 +72,7 @@ typedef struct {
 
 ## Transacción
 
-[↑](##Indice)
+[↑](#Indice)
 
 ```c
 typedef enum {Efectivo, Tarjeta} MedioPago;
