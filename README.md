@@ -8,8 +8,8 @@ typedef enum {Mesero, Cajero, Manager, Owner} Rol;
 typedef struct {
     int id;
     int activo;
-    char[20] nombre;
-    char[20] apellido;
+    char nombre[20];
+    char apellido[20];
     Rol rol;
 } Empleado;
 ```
@@ -24,7 +24,6 @@ typedef struct {
 |Modificar empleados|      |      |       |    x|
 |Modificar productos|      |      |      x|    x|
 |Modificar caja     |      |     x|      x|    x|
-|Pagar proveedores  |      |      |      x|    x|
 
 ---
 
@@ -36,7 +35,7 @@ typedef enum {Entrada, Plato_principal, Postre, Bebida} ComidaTipo;
 typedef struct {
     int id;
     int activo;
-    char[30] nombre;
+    char nombre[30];
     float precio;
     ComidaTipo comida_tipo;
 } Comida;
@@ -52,7 +51,7 @@ typedef struct {
     int activo;
     int sillas;
     int ocupada;
-    Orden[30] orden;
+    Orden orden[30];
 }
 ```
 
@@ -65,6 +64,8 @@ typedef enum {Efectivo, Tarjeta} MEDIOPAGO;
 
 typedef struct {
     int id;
+    int orden_id;
+    int cancelada;
     float monto;
     MEDIOPAGO medio_pago;
 } Transaccion;
