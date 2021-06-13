@@ -4,6 +4,7 @@
 
 * [Empleados](#Empleados)
 * [Comida](#Comida)
+* [Ordenes](#Orden)
 * [Mesas](#Mesa)
 * [Transacciones](#Transacción)
 
@@ -54,6 +55,21 @@ typedef struct {
 
 ---
 
+## Orden
+
+[↑](#Indice)
+
+```c
+typedef struct {
+    int id;
+    int activo;
+    int cantItems;
+    Comida items[30];
+} Orden;
+```
+
+---
+
 ## Mesa
 
 [↑](#Indice)
@@ -64,8 +80,9 @@ typedef struct {
     int activo;
     int sillas;
     int ocupada;
+    int cantOrd;
     Orden orden[30];
-}
+} Mesa;
 ```
 
 ---
