@@ -4,7 +4,7 @@
 typedef enum
 {
     Efectivo,
-    Tarjeta
+    Tarjeta = 12,
 } MedioPago;
 
 typedef enum
@@ -19,6 +19,8 @@ void showMenu();
 
 int main()
 {
-    printf("%d\n", Tarjeta == Entrada);
+    printf("%d\n",Tarjeta);
+    Tarjeta = 5;
+    printf("%d\n",Tarjeta);
     return 0;
 }

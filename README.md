@@ -1,4 +1,4 @@
-# Programa de restaurante
+# GuLyX
 
 ## Indice
 
@@ -17,7 +17,7 @@ typedef enum {Mesero, Cajero, Manager, Owner} Rol;
 
 typedef struct {
     int id;
-    int activo;
+    int activo;.
     char nombre[20];
     char apellido[20];
     Rol rol;
@@ -42,20 +42,21 @@ typedef struct {
 [↑](#Indice)
 
 ```c
-typedef enum {Entrada, Plato_principal, Postre, Bebida} ComidaTipo;
-
+typedef enum {Entrada, Plato_principal, Minutas, Postre, Bebida} ComidaTipo;
+//pendiente agregar subcategoria
 typedef struct {
     int id;
     int activo;
     char nombre[30];
     float precio;
     ComidaTipo comida_tipo;
+    SubCategoria subCategoria = 0;
 } Comida;
 ```
 
 ---
 
-## Orden
+## Pedido
 
 [↑](#Indice)
 
@@ -65,7 +66,7 @@ typedef struct {
     int activo;
     int cantItems;
     Comida items[30];
-} Orden;
+} Pedido;
 ```
 
 ---
@@ -81,7 +82,7 @@ typedef struct {
     int sillas;
     int ocupada;
     int cantOrd;
-    Orden orden[30];
+    Pedido pedidos[30];
 } Mesa;
 ```
 
