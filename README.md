@@ -81,11 +81,11 @@ typedef struct {
     int activo;
     int sillas;
     int ocupada;
-    int cantPed;
+    int cantOrd;
     Pedido pedidos[30];
 } Mesa;
 ```
-
+    
 ---
 
 ## Transacción
