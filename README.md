@@ -81,7 +81,7 @@ typedef struct {
     int activo;
     int sillas;
     int ocupada;
-    int cantOrd;
+    int cantPed;
     Pedido pedidos[30];
 } Mesa;
 ```
