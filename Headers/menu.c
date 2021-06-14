@@ -23,5 +23,6 @@ void mostrarLogo()
 
 void mostrarMenu()
 {
+    mostrarLogo();
     printf("Soy el menu");
 }

@@ -85,7 +85,7 @@ typedef struct {
     Pedido pedidos[30];
 } Mesa;
 ```
-    
+
 ---
 
 ## Transacción
