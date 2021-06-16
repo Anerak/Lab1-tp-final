@@ -52,6 +52,7 @@ void agregarEmpl(Empleado *empleado, int rolValido);
 int main()
 {
     Empleado empleados[50];
+    system("COLOR B0");
 
     int tipoUsuario = 0;
     int devolUsuario = 0;
@@ -62,6 +63,7 @@ int main()
     {
         system("cls");
         mostrarMenu();
+        gotoxy(85, 11);
         scanf("%d", &tipoUsuario);
     } while (tipoUsuario < 0 || tipoUsuario > 3);
     do
@@ -235,7 +237,7 @@ void mostrarMenu()
     printf("                          ----------------------------------------------------------------\n");
     printf("                          |                      Bienvenido a Gulyx!                      |\n");
     printf("                          |                                                               |\n");
-    printf("                          |        Seleccione un usuario para ingresar al sistema         |\n");
+    printf("                          |        Seleccione un usuario para ingresar al sistema:        |\n");
     printf("                          |                                                               |\n");
     printf("                          |                          1-Duenio                             |\n");
     printf("                          |                          2-Gerente                            |\n");
@@ -249,7 +251,7 @@ void mostrarDuenio()
     printf("\n\n\n\n\n\n\n\n");
     printf("                          ----------------------------------------------------------------\n");
     printf("                          |                                                    Gulyx      |\n");
-    printf("                          |                    Rango: Duenio                               |\n");
+    printf("                          |                    Rango: Duenio                              |\n");
     printf("                          |                  Ingrese contrasena:                          |\n");
     printf("                          |                                                               |\n");
     printf("                          |                                                               |\n");
