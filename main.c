@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
+#include <windows.h>
 
 //contraseña duenño
 #define passOwner "admin1234"
@@ -29,64 +30,46 @@ typedef struct
 
 void mostrarLogo();
 void mostrarMenu();
+void mostrarDuenio();
+void mostrarGerente();
+void mostrarCajero();
 void inicioDuenio();
 void inicioGerente();
 void inicioCajero();
 int SeleccionUsuario(int tipoUsuario);
+void selecIngresoOwner();
+void ingEliEmpleado();
+void ingEliGerente();
+void manejoMesas();
+void menuMesa();
+void ingProductosMesa();
+void ingComidas();
+void ingBebidas();
+void ingPostres();
+void gotoxy(int x, int y);
+void agregarEmpl(Empleado *empleado, int rolValido);
 
 int main()
 {
+    Empleado empleados[50];
+
     int tipoUsuario = 0;
     int devolUsuario = 0;
 
     mostrarLogo();
 
-    mostrarMenu();
-
-    scanf("%d", &tipoUsuario);
+    do
+    {
+        system("cls");
+        mostrarMenu();
+        scanf("%d", &tipoUsuario);
+    } while (tipoUsuario < 0 || tipoUsuario > 3);
     do
     {
         devolUsuario = SeleccionUsuario(tipoUsuario);
     } while (devolUsuario == 1);
 
     return 0;
-}
-
-void mostrarLogo()
-{
-    printf("\n\n\n\n\n\n\n\n");
-    printf("                               ,ad8888ba,                88\n");
-    printf("                              d8\"\'    `\"8b               88\n");
-    printf("                             d8\'                         88\n");
-    printf("                             88             88       88  88  8b       d8  8b,     ,d8\n");
-    printf("                             88      88888  88       88  88  `8b     d8\'   `Y8, ,8P\'\n");
-    printf("                             Y8,        88  88       88  88   `8b   d8\'      )888(\n");
-    printf("                              Y8a.    .a88  \"8a,   ,a88  88    `8b,d8'     ,d8\" \"8b,\n");
-    printf("                               `\"Y88888P\"    `\"YbbdP\'Y8  88      Y88\'     8P\'     `Y8\n");
-    printf("                                                                d8\'\n");
-    printf("                                                               d8\'\n");
-    printf("\n\n\n\n\n\n\n\n");
-    printf("                                                                                             Copyright ©2020 Gulyx\n");
-    printf("                                                                                              All rights reserved.\n");
-
-    system("pause");
-    system("cls");
-}
-
-void mostrarMenu()
-{
-    system("cls");
-    printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
-    printf("                          |                      Bienvenido a Gulyx!                      |\n");
-    printf("                          |                                                               |\n");
-    printf("                          |        Seleccione un usuario para ingresar al sistema         |\n");
-    printf("                          |                                                               |\n");
-    printf("                          |                          1-Duenio                             |\n");
-    printf("                          |                          2-Gerente                            |\n");
-    printf("                          |                          3-Cajero                             |\n");
-    printf("                          |                                                               |\n");
-    printf("                          ----------------------------------------------------------------\n");
 }
 
 int SeleccionUsuario(int tipoUsuario)
@@ -99,6 +82,7 @@ int SeleccionUsuario(int tipoUsuario)
     if (tipoUsuario == 1)
     {
         mostrarDuenio();
+        gotoxy(65, 11);
         while (caracter = getch())
         {
             if (caracter == 13)
@@ -120,7 +104,9 @@ int SeleccionUsuario(int tipoUsuario)
         }
         else
         {
-            printf("                          \nContrasena incorrecta\n");
+            gotoxy(65, 11);
+            printf("Contrasena incorrecta");
+            gotoxy(46, 13);
             system("pause");
             flag = 1;
         }
@@ -128,6 +114,7 @@ int SeleccionUsuario(int tipoUsuario)
     else if (tipoUsuario == 2)
     {
         mostrarGerente();
+        gotoxy(65, 11);
         while (caracter = getch())
         {
             if (caracter == 13)
@@ -148,7 +135,9 @@ int SeleccionUsuario(int tipoUsuario)
         }
         else
         {
-            printf("                          \nContrasena incorrecta\n");
+            gotoxy(65, 11);
+            printf("Contrasena incorrecta");
+            gotoxy(46, 13);
             system("pause");
             flag = 1;
         }
@@ -156,6 +145,7 @@ int SeleccionUsuario(int tipoUsuario)
     else
     {
         mostrarCajero();
+        gotoxy(65, 11);
         while (caracter = getch())
         {
             if (caracter == 13)
@@ -172,25 +162,96 @@ int SeleccionUsuario(int tipoUsuario)
         }
         if (strcmp(password, passEmploy) == 0)
         {
-            inicioCajero();
+            manejoMesas();
         }
         else
         {
-            printf("                          \nContrasena incorrecta\n");
+            gotoxy(65, 11);
+            printf("Contrasena incorrecta");
+            gotoxy(46, 13);
             system("pause");
             flag = 1;
         }
     }
     return flag;
 }
+void gotoxy(int x, int y)
+{
+    HANDLE Manipulador;
+    COORD Coordenadas;
+    Manipulador = GetStdHandle(STD_OUTPUT_HANDLE);
+    Coordenadas.X = x;
+    Coordenadas.Y = y;
+    SetConsoleCursorPosition(Manipulador, Coordenadas);
+}
+void agregarEmpl(Empleado *empleado, int rolValido)
+{
+    int opEmp = 0;
+    printf("\n\n\n\n\n\n\n\n");
+    printf("                          ----------------------------------------------------------------\n");
+    printf("                          |                                                    Gulyx      |\n");
+    printf("                          | ID del empleado:                                              |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |Ingrese SOLO el nombre:                                        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |Ingrese el apellido:                                           |\n");
+
+    if (rolValido == 1)
+    {
+        printf("                          |Seleccione un Rol:    1-Gerente  2-Cajero  3-Camarero          |\n");
+    }
+    else
+    {
+        printf("                          |Seleccione un Rol:      1-Cajero  2-Camarero                   |\n");
+    }
+    printf("                          |        Opcion:                                                |\n");
+    printf("                          ----------------------------------------------------------------\n");
+
+    gets(empleado->nombre);
+    gets(empleado->apellido);
+    if (rolValido == 1)
+    {
+        do
+        {
+            scanf("%d", opEmp);
+        } while (opEmp < 0 || opEmp > 3);
+    }
+    else
+    {
+        do
+        {
+            scanf("%d", opEmp);
+        } while (opEmp < 0 || opEmp > 2);
+    }
+    empleado->rol = opEmp;
+
+    empleado->activo = 1;
+}
+
+void mostrarMenu()
+{
+    system("cls");
+    printf("\n\n\n\n\n\n\n\n");
+    printf("                          ----------------------------------------------------------------\n");
+    printf("                          |                      Bienvenido a Gulyx!                      |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |        Seleccione un usuario para ingresar al sistema         |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |                          1-Duenio                             |\n");
+    printf("                          |                          2-Gerente                            |\n");
+    printf("                          |                          3-Cajero                             |\n");
+    printf("                          |                                                               |\n");
+    printf("                          ----------------------------------------------------------------\n");
+}
 
 void mostrarDuenio()
 {
     printf("\n\n\n\n\n\n\n\n");
     printf("                          ----------------------------------------------------------------\n");
-    printf("                          |                                                               |\n");
-    printf("                          |                    Rango: Duenio                Gulyx         |\n");
+    printf("                          |                                                    Gulyx      |\n");
+    printf("                          |                    Rango: Duenio                               |\n");
     printf("                          |                  Ingrese contrasena:                          |\n");
+    printf("                          |                                                               |\n");
     printf("                          |                                                               |\n");
     printf("                          ----------------------------------------------------------------\n");
 }
@@ -199,9 +260,10 @@ void mostrarGerente()
 {
     printf("\n\n\n\n\n\n\n\n");
     printf("                          ----------------------------------------------------------------\n");
+    printf("                          |                                                    Gulyx      |\n");
+    printf("                          |                      Rango: Gerente                           |\n");
+    printf("                          |                   Ingrese contrasena:                         |\n");
     printf("                          |                                                               |\n");
-    printf("                          |                             Rango: Gerente          Gulyx     |\n");
-    printf("                          |                          Ingrese contrasena:                  |\n");
     printf("                          |                                                               |\n");
     printf("                          ----------------------------------------------------------------\n");
 }
@@ -210,9 +272,10 @@ void mostrarCajero()
 {
     printf("\n\n\n\n\n\n\n\n");
     printf("                          ----------------------------------------------------------------\n");
+    printf("                          |                                                     Gulyx     |\n");
+    printf("                          |                      Rango: Cajero                            |\n");
+    printf("                          |                   Ingrese contrasena:                         |\n");
     printf("                          |                                                               |\n");
-    printf("                          |                         Rango: Cajero               Gulyx     |\n");
-    printf("                          |                      Ingrese contrasena:                      |\n");
     printf("                          |                                                               |\n");
     printf("                          ----------------------------------------------------------------\n");
 }
@@ -250,7 +313,7 @@ void inicioGerente()
     printf("                          ----------------------------------------------------------------\n");
 }
 
-void inicioCajero()
+/*void inicioCajero()
 {
     system("cls");
     printf("\n\n\n\n\n\n\n\n");
@@ -263,7 +326,7 @@ void inicioCajero()
     printf("                          | 1-Manejo de mesas                                             |\n");
     printf("                          |                                                               |\n");
     printf("                          ----------------------------------------------------------------\n");
-}
+}*/
 
 void selecIngresoOwner()
 {
@@ -352,7 +415,7 @@ void manejoMesas()
     printf("                          |                  | 5 |   | 6 |   | 7 |  | 8 |                 |\n");
     printf("                          |                                                               |\n");
     printf("                          |  - O = Mesa ocupada                                           |\n");
-    printf("                          |  0-Volver al menu de opciones                                 |\n");
+    printf("                          |  0-Cerrar caja del dia                                        |\n");
     printf("                          |                                                               |\n");
     printf("                          |                                                               |\n");
     printf("                          ----------------------------------------------------------------\n");
@@ -487,4 +550,24 @@ void ingPostres()
     printf("                          |  8-LEMONPIE                                       $280        |\n");
     printf("                          |                                                               |\n");
     printf("                          -----------------------------------------------------------------\n");
+}
+void mostrarLogo()
+{
+    printf("\n\n\n\n\n\n\n\n");
+    printf("                               ,ad8888ba,                88\n");
+    printf("                              d8\"\'    `\"8b               88\n");
+    printf("                             d8\'                         88\n");
+    printf("                             88             88       88  88  8b       d8  8b,     ,d8\n");
+    printf("                             88      88888  88       88  88  `8b     d8\'   `Y8, ,8P\'\n");
+    printf("                             Y8,        88  88       88  88   `8b   d8\'      )888(\n");
+    printf("                              Y8a.    .a88  \"8a,   ,a88  88    `8b,d8'     ,d8\" \"8b,\n");
+    printf("                               `\"Y88888P\"    `\"YbbdP\'Y8  88      Y88\'     8P\'     `Y8\n");
+    printf("                                                                d8\'\n");
+    printf("                                                               d8\'\n");
+    printf("\n\n\n\n\n\n\n\n");
+    printf("                                                                                             Copyright ©2020 Gulyx\n");
+    printf("                                                                                              All rights reserved.\n");
+
+    system("pause");
+    system("cls");
 }
