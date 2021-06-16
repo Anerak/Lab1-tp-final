@@ -4,11 +4,11 @@
 #include <conio.h>
 
 //contraseña duenño
-#define passOwner "admin1234";
+#define passOwner "admin1234"
 //contraseña gerente
-#define passManager "manag123";
+#define passManager "manag123"
 //contraseña cajero
-#define passEmploy "gul123";
+#define passEmploy "gul123"
 
 typedef enum
 {
@@ -43,9 +43,9 @@ int main()
 
     mostrarMenu();
 
+    scanf("%d", &tipoUsuario);
     do
     {
-        scanf("                          %d", &tipoUsuario);
         devolUsuario = SeleccionUsuario(tipoUsuario);
     } while (devolUsuario == 1);
 
@@ -98,11 +98,7 @@ int SeleccionUsuario(int tipoUsuario)
     int c = 0;
     if (tipoUsuario == 1)
     {
-        printf("\n\n\n\n\n\n\n\n");
-        printf("                          ----------------------------------------------------------------\n");
-        printf("                          |                    Rango: Duenio                Gulyx         |\n");
-        printf("                          |                  Ingrese contrasena:                          |\n");
-        printf("                          ----------------------------------------------------------------\n");
+        mostrarDuenio();
         while (caracter = getch())
         {
             if (caracter == 13)
@@ -118,23 +114,20 @@ int SeleccionUsuario(int tipoUsuario)
             }
         }
 
-        if (strcmp(password, "admin1234") == 0)
+        if (strcmp(password, passOwner) == 0)
         {
             inicioDuenio();
         }
         else
         {
             printf("                          \nContrasena incorrecta\n");
+            system("pause");
             flag = 1;
         }
     }
     else if (tipoUsuario == 2)
     {
-        printf("\n\n\n\n\n\n\n\n");
-        printf("                          ----------------------------------------------------------------\n");
-        printf("                         |                             Rango: Gerente          Gulyx      |\n");
-        printf("                         |                          Ingrese contrasena:                   |\n");
-        printf("                          ----------------------------------------------------------------\n");
+        mostrarGerente();
         while (caracter = getch())
         {
             if (caracter == 13)
@@ -149,23 +142,20 @@ int SeleccionUsuario(int tipoUsuario)
                 c++;
             }
         }
-        if (strcmp(password, "manag123") == 0)
+        if (strcmp(password, passManager) == 0)
         {
             inicioGerente();
         }
         else
         {
             printf("                          \nContrasena incorrecta\n");
+            system("pause");
             flag = 1;
         }
     }
     else
     {
-        printf("\n\n\n\n\n\n\n\n");
-        printf("                          ----------------------------------------------------------------\n");
-        printf("                         |                         Rango: Cajero               Gulyx      |\n");
-        printf("                         |                      Ingrese contrasena:                       |\n");
-        printf("                          ----------------------------------------------------------------\n");
+        mostrarCajero();
         while (caracter = getch())
         {
             if (caracter == 13)
@@ -180,17 +170,51 @@ int SeleccionUsuario(int tipoUsuario)
                 c++;
             }
         }
-        if (strcmp(password, "gul123") == 0)
+        if (strcmp(password, passEmploy) == 0)
         {
             inicioCajero();
         }
         else
         {
             printf("                          \nContrasena incorrecta\n");
+            system("pause");
             flag = 1;
         }
     }
     return flag;
+}
+
+void mostrarDuenio()
+{
+    printf("\n\n\n\n\n\n\n\n");
+    printf("                          ----------------------------------------------------------------\n");
+    printf("                          |                                                               |\n");
+    printf("                          |                    Rango: Duenio                Gulyx         |\n");
+    printf("                          |                  Ingrese contrasena:                          |\n");
+    printf("                          |                                                               |\n");
+    printf("                          ----------------------------------------------------------------\n");
+}
+
+void mostrarGerente()
+{
+    printf("\n\n\n\n\n\n\n\n");
+    printf("                          ----------------------------------------------------------------\n");
+    printf("                          |                                                               |\n");
+    printf("                          |                             Rango: Gerente          Gulyx     |\n");
+    printf("                          |                          Ingrese contrasena:                  |\n");
+    printf("                          |                                                               |\n");
+    printf("                          ----------------------------------------------------------------\n");
+}
+
+void mostrarCajero()
+{
+    printf("\n\n\n\n\n\n\n\n");
+    printf("                          ----------------------------------------------------------------\n");
+    printf("                          |                                                               |\n");
+    printf("                          |                         Rango: Cajero               Gulyx     |\n");
+    printf("                          |                      Ingrese contrasena:                      |\n");
+    printf("                          |                                                               |\n");
+    printf("                          ----------------------------------------------------------------\n");
 }
 
 void inicioDuenio()
@@ -203,9 +227,9 @@ void inicioDuenio()
     printf("                          |  Seleccione una opcion:                                       |\n");
     printf("                          |                                                               |\n");
     printf("                          | 1-Ingresar o eliminar empleado o gerente                      |\n");
-    printf("                          | 2-Ingresar productos al menu                                  |\n");
-    printf("                          | 3-Ventas del dia                                              |\n");
-    printf("                          | 4-Manejo de mesas                                             |\n");
+    /*  printf("                          | 2-Ingresar productos al menu                                  |\n");*/
+    printf("                          | 2-Ventas del dia                                              |\n");
+    printf("                          | 3-Manejo de mesas                                             |\n");
     printf("                          |                                                               |\n");
     printf("                          ----------------------------------------------------------------\n");
 }
@@ -220,8 +244,8 @@ void inicioGerente()
     printf("                          |  Seleccione una opcion:                                       |\n");
     printf("                          |                                                               |\n");
     printf("                          | 1-Ingresar o eliminar empleado                                |\n");
-    printf("                          | 2-Ingresar productos al menu                                  |\n");
-    printf("                          | 3-Manejo de mesas                                             |\n");
+    //  printf("                          | 2-Ingresar productos al menu                                  |\n");
+    printf("                          | 2-Manejo de mesas                                             |\n");
     printf("                          |                                                               |\n");
     printf("                          ----------------------------------------------------------------\n");
 }
@@ -235,8 +259,8 @@ void inicioCajero()
     printf("                          |                                                               |\n");
     printf("                          |  Seleccione una opcion:                                       |\n");
     printf("                          |                                                               |\n");
-    printf("                          | 2-Ingresar productos al menu                                  |\n");
-    printf("                          | 3-Manejo de mesas                                             |\n");
+    // printf("                          | 2-Ingresar productos al menu                                  |\n");
+    printf("                          | 1-Manejo de mesas                                             |\n");
     printf("                          |                                                               |\n");
     printf("                          ----------------------------------------------------------------\n");
 }
@@ -263,9 +287,9 @@ void ingEliEmpleado()
     printf("                          |  Seleccione una opcion:                       Gulyx           |\n");
     printf("                          |                                                               |\n");
     printf("                          |  1-Ingresar nuevo empleado                                    |\n");
-    printf("                          |  2-Editar empleado                                            |\n");
-    printf("                          |  3-Eliminar empleado                                          |\n");
-    printf("                          |  4-Volver al menu de opciones                                 |\n");
+    //  printf("                          |  2-Editar empleado                                            |\n");
+    printf("                          |  2-Eliminar empleado                                          |\n");
+    printf("                          |  3-Volver al menu de opciones                                 |\n");
     printf("                          |                                                               |\n");
     printf("                          ----------------------------------------------------------------\n");
 }
@@ -279,14 +303,14 @@ void ingEliGerente()
     printf("                          |  Seleccione una opcion:                       Gulyx           |\n");
     printf("                          |                                                               |\n");
     printf("                          |  1-Ingresar nuevo gerente                                     |\n");
-    printf("                          |  2-Editar gerente                                             |\n");
-    printf("                          |  3-Eliminar gerente                                           |\n");
-    printf("                          |  4-Volver al menu de opciones                                 |\n");
+    //   printf("                          |  2-Editar gerente                                             |\n");
+    printf("                          |  2-Eliminar gerente                                           |\n");
+    printf("                          |  3-Volver al menu de opciones                                 |\n");
     printf("                          |                                                               |\n");
     printf("                          ----------------------------------------------------------------\n");
 }
 
-void ingStock()
+/*void ingStock()
 {
     system("cls");
     printf("\n\n\n\n\n\n\n\n");
@@ -299,9 +323,9 @@ void ingStock()
     printf("                          |  4-Volver al menu de opciones                                 |\n");
     printf("                          |                                                               |\n");
     printf("                          ----------------------------------------------------------------\n");
-}
+}*/
 
-void ventasDiaras()
+/*void ventasDiaras()
 {
     system("cls");
     printf("\n\n\n\n\n\n\n\n");
@@ -310,10 +334,10 @@ void ventasDiaras()
     printf("                          |                                                               |\n");
     printf("                          |  1-Venta diaria total                                         |\n");
     printf("                          |  2-Venta diaria por empleado                                  |\n");
-    printf("                          |  3-Volver al menu de opciones                                 |\n");
+    printf("                          |  2-Volver al menu de opciones                                 |\n");
     printf("                          |                                                               |\n");
     printf("                          ----------------------------------------------------------------\n");
-}
+}*/
 
 void manejoMesas()
 {
@@ -362,4 +386,105 @@ void ingProductosMesa()
     printf("                          | 4-Volver al menu de Mesas                                     |\n");
     printf("                          |                                                               |\n");
     printf("                          ----------------------------------------------------------------\n");
+}
+
+void ingComidas()
+{
+    system("cls");
+    printf("\n\n\n");
+    printf("                          -----------------------------------------------------------------\n");
+    printf("                          |  Comidas:                                        Gulyx        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  PASTAS--------------------------                PRECIO       |\n");
+    printf("                          |                                                               |\n");
+    printf("                          | 1-SORRENTINOS CON BOLOGNESA                       $260        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          | 2-CANELONES CON FILETO                            $230        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          | 3-FIDEOS CON BLANCA                               $200        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          | MINUTAS--------------------------                             |\n");
+    printf("                          |                                                               |\n");
+    printf("                          | 4-MILANESA CON FRITAS Y 2 HUEVOS                  $250        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          | 5-HAMBURGUESA COMPLETA                            $280        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          | 6-PRECHUGA GRILLE CON ENSALADA                    $300        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          | PIZZAS---------------------------                             |\n");
+    printf("                          |                                                               |\n");
+    printf("                          | 7-NAPOLITANA/ESPECIAL/EXTRAGULYX                  $500        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          | EMPANADAS------------------------                             |\n");
+    printf("                          |                                                               |\n");
+    printf("                          | 8-CARNE/POLLO/JYQ/CAPRESSE/HUMITA                 $70         |\n");
+    printf("                          |                                                               |\n");
+    printf("                          -----------------------------------------------------------------\n");
+}
+
+void ingBebidas()
+{
+    system("cls");
+    printf("\n\n\n");
+    printf("                          -----------------------------------------------------------------\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  Bebidas:                                        Gulyx        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  GASEOSAS------------------------                PRECIO       |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  1-COCA/SPRITE/MIRINDA                            $120        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  2-AGUA SABORIZADA                                $140        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  3-AGUA CON O SIN GAS                             $100        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  4-GATORADE                                       $180        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  VINOS---------------------------                             |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  5-VASCO VIEJO 3/4 TINTO O BLANCO                 $260        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  6-SANTA JULIA BLANCO 3/4                         $350        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  TRAGOS--------------------------                             |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  7-FERNET CON COCA/GIN TONIC                      $300        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  8-CAIPIRINHA/CAIPIROSKA                          $340        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          -----------------------------------------------------------------\n");
+}
+
+void ingPostres()
+{
+    system("cls");
+    printf("\n\n\n");
+    printf("                          -----------------------------------------------------------------\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  Postres:                                        Gulyx        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  HELADOS-------------------------                PRECIO       |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  1-ALMENDRADO/3 GUSTOS                            $160        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  2-BOMBON SUIZO/ESCOCES                           $180        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  3-BOCHA HELADO CHOCOLATE/VAINILLA                $100        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  FLAN O BUDIN--------------------                             |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  4-SOLO                                           $140        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  5-DULCE DE LECHE O CREMA                         $170        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  6-MIXTO                                          $190        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  CUPCAKES------------------------                             |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  7-CHOCOTORTA                                     $300        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |  8-LEMONPIE                                       $280        |\n");
+    printf("                          |                                                               |\n");
+    printf("                          -----------------------------------------------------------------\n");
 }
