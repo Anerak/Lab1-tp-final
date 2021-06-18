@@ -11,6 +11,8 @@
 //contraseña cajero
 #define passEmploy "gul123"
 
+#define datosempleados "empleado.dat"
+
 typedef enum
 {
     Mesero,
@@ -36,7 +38,7 @@ void mostrarCajero();
 void inicioDuenio();
 void inicioGerente();
 void inicioCajero();
-int SeleccionUsuario(int tipoUsuario);
+void SeleccionUsuario(int tipoUsuario);
 void selecIngresoOwner();
 void ingEliEmpleado();
 void ingEliGerente();
@@ -47,7 +49,8 @@ void ingComidas();
 void ingBebidas();
 void ingPostres();
 void gotoxy(int x, int y);
-void agregarEmpl(Empleado *empleado, int rolValido);
+Empleado agregarEmpl(int rolValido);
+void addEmpFile(Empleado empleados);
 
 int main()
 {
@@ -66,25 +69,22 @@ int main()
         gotoxy(85, 11);
         scanf("%d", &tipoUsuario);
     } while (tipoUsuario < 0 || tipoUsuario > 3);
-    do
-    {
-        devolUsuario = SeleccionUsuario(tipoUsuario);
-    } while (devolUsuario == 1);
+
+    SeleccionUsuario(tipoUsuario);
 
     return 0;
 }
-
-int SeleccionUsuario(int tipoUsuario)
+int comprobarPass(int tipoUsuario)
 {
-    system("cls");
+
     char password[9];
     char caracter;
     int flag = 0;
     int c = 0;
-    if (tipoUsuario == 1)
+
+    switch (tipoUsuario)
     {
-        mostrarDuenio();
-        gotoxy(65, 11);
+    case 1:
         while (caracter = getch())
         {
             if (caracter == 13)
@@ -99,7 +99,6 @@ int SeleccionUsuario(int tipoUsuario)
                 c++;
             }
         }
-
         if (strcmp(password, passOwner) == 0)
         {
             inicioDuenio();
@@ -112,11 +111,9 @@ int SeleccionUsuario(int tipoUsuario)
             system("pause");
             flag = 1;
         }
-    }
-    else if (tipoUsuario == 2)
-    {
-        mostrarGerente();
-        gotoxy(65, 11);
+        break;
+    case 2:
+
         while (caracter = getch())
         {
             if (caracter == 13)
@@ -143,11 +140,8 @@ int SeleccionUsuario(int tipoUsuario)
             system("pause");
             flag = 1;
         }
-    }
-    else
-    {
-        mostrarCajero();
-        gotoxy(65, 11);
+
+    case 3:
         while (caracter = getch())
         {
             if (caracter == 13)
@@ -175,8 +169,85 @@ int SeleccionUsuario(int tipoUsuario)
             flag = 1;
         }
     }
+
     return flag;
 }
+
+void SeleccionUsuario(int tipoUsuario)
+{
+    system("cls");
+    char password[9];
+    char caracter;
+    int flag = 0;
+    int c = 0;
+    int passcomprobation = 0;
+    int opmenu2 = 0;
+    do
+    {
+        switch (tipoUsuario)
+        {
+
+        case 1:
+
+            system("cls");
+            mostrarDuenio();
+            gotoxy(65, 11);
+            passcomprobation = comprobarPass(tipoUsuario);
+            gotoxy(52, 11);
+            scanf("%d", &opmenu2);
+            menu2duenio(opmenu2);
+
+            break;
+        case 2:
+
+            system("cls");
+            mostrarGerente();
+            gotoxy(65, 11);
+            passcomprobation = comprobarPass(tipoUsuario);
+
+            break;
+        case 3:
+
+            system("cls");
+            mostrarCajero();
+            gotoxy(65, 11);
+            passcomprobation = comprobarPass(tipoUsuario);
+
+            break;
+        }
+    } while (passcomprobation == 1);
+}
+void menu2duenio(int op)
+{
+    int opelegida = 0;
+    switch (op)
+    {
+    case 1:
+        ingEliEmpleado();
+        gotoxy(55, 9);
+        scanf("%d", &opelegida);
+        ingelempSwitch(opelegida);
+
+        break;
+    }
+}
+
+void ingelempSwitch(int op)
+{
+
+    switch (op)
+    {
+    case 1:
+        mostrarArchEmpl();
+        break;
+
+    case 2:
+        cargEstrucYarchi(1);
+
+        break;
+    }
+}
+
 void gotoxy(int x, int y)
 {
     HANDLE Manipulador;
@@ -186,13 +257,16 @@ void gotoxy(int x, int y)
     Coordenadas.Y = y;
     SetConsoleCursorPosition(Manipulador, Coordenadas);
 }
-void agregarEmpl(Empleado *empleado, int rolValido)
+Empleado agregarEmpl(int rolValido)
 {
+    system("cls");
+    Empleado aux;
     int opEmp = 0;
+    aux.id = idRandom();
     printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |                                                    Gulyx      |\n");
-    printf("                          | ID del empleado:                                              |\n");
+    printf("                          | ID del empleado:  %d                                          |\n", aux.id);
     printf("                          |                                                               |\n");
     printf("                          |Ingrese SOLO el nombre:                                        |\n");
     printf("                          |                                                               |\n");
@@ -207,10 +281,11 @@ void agregarEmpl(Empleado *empleado, int rolValido)
         printf("                          |Seleccione un Rol:      1-Cajero  2-Camarero                   |\n");
     }
     printf("                          |        Opcion:                                                |\n");
-    printf("                          ----------------------------------------------------------------\n");
-
-    gets(empleado->nombre);
-    gets(empleado->apellido);
+    printf("                          '---------------------------------------------------------------'\n");
+    gotoxy(53, 11);
+    gets(aux.nombre);
+    gotoxy(49, 13);
+    gets(aux.apellido);
     if (rolValido == 1)
     {
         do
@@ -225,16 +300,109 @@ void agregarEmpl(Empleado *empleado, int rolValido)
             scanf("%d", opEmp);
         } while (opEmp < 0 || opEmp > 2);
     }
-    empleado->rol = opEmp;
+    aux.rol = opEmp;
 
-    empleado->activo = 1;
+    aux.activo = 1;
+
+    return aux;
 }
 
+void addEmpFile(Empleado empleados)
+{
+    FILE *archi = fopen(datosempleados, "ab");
+
+    if (archi == NULL)
+    {
+        printf("No se pudo abrir el archivo\n");
+    }
+    else
+    {
+        fwrite(&empleados, sizeof(Empleado), 1, archi);
+        fclose(datosempleados);
+    }
+}
+void cargEstrucYarchi(int rolValido)
+{
+    char seguir = 's';
+    Empleado aux;
+    while (seguir == 's')
+    {
+        aux = agregarEmpl(rolValido);
+        printf("Desea cargar otro empleado? s/n\n");
+        fflush(stdin);
+        scanf("%c", &seguir);
+    }
+}
+
+void mostrarEmpleado(Empleado empleados)
+{
+    printf("\n\n\n\n\n\n\n\n");
+    printf("                          .---------------------------------------------------------------.\n");
+    printf("                          |                                                    Gulyx      |\n");
+    printf("                          | ID del empleado: %i                                           |\n", empleados.id);
+    printf("                          |                                                               |\n");
+    printf("                          |Ingrese SOLO el nombre: %s                                     |\n", empleados.nombre);
+    printf("                          |                                                               |\n");
+    printf("                          |Ingrese el apellido: %s                                        |\n", empleados.apellido);
+    printf("                          |                                                               |\n");
+    printf("                          |Rol: %i                                                        |\n", empleados.rol);
+    printf("                          |                                                               |\n");
+    printf("                          '---------------------------------------------------------------'\n");
+}
+int idRandom()
+{
+
+    srand(time(NULL));
+    int numrand = 1 + rand() % 1000;
+    comprobarId(numrand);
+
+    return numrand;
+}
+void comprobarId(int idrand)
+{
+    FILE *archi = fopen(datosempleados, "rb");
+    Empleado aux;
+    int flag = 0;
+    do
+    {
+        if (archi != NULL)
+        {
+            while (fread(&aux, sizeof(Empleado), 1, archi) > 0 && flag == 0)
+            {
+                if (aux.id == idrand)
+                {
+                    idrand++;
+                    flag = 1;
+                }
+            }
+            fclose(archi);
+        }
+
+    } while (flag == 1);
+}
+
+void mostrarArchEmpl()
+{
+    Empleado aux;
+    FILE *archi = fopen(datosempleados, "rb");
+    if (archi != NULL)
+    {
+        while (fread(&aux, sizeof(Empleado), 1, archi) > 0)
+        {
+            mostrarEmpleado(aux);
+        }
+        fclose(archi);
+    }
+    else
+    {
+        printf("Error al abrir el archivo\n");
+    }
+}
 void mostrarMenu()
 {
     system("cls");
     printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |                      Bienvenido a Gulyx!                      |\n");
     printf("                          |                                                               |\n");
     printf("                          |        Seleccione un usuario para ingresar al sistema:        |\n");
@@ -243,67 +411,67 @@ void mostrarMenu()
     printf("                          |                          2-Gerente                            |\n");
     printf("                          |                          3-Cajero                             |\n");
     printf("                          |                                                               |\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          '---------------------------------------------------------------'\n");
 }
 
 void mostrarDuenio()
 {
     printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |                                                    Gulyx      |\n");
     printf("                          |                    Rango: Duenio                              |\n");
     printf("                          |                  Ingrese contrasena:                          |\n");
     printf("                          |                                                               |\n");
     printf("                          |                                                               |\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          '---------------------------------------------------------------'\n");
 }
 
 void mostrarGerente()
 {
     printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |                                                    Gulyx      |\n");
     printf("                          |                      Rango: Gerente                           |\n");
     printf("                          |                   Ingrese contrasena:                         |\n");
     printf("                          |                                                               |\n");
     printf("                          |                                                               |\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          '---------------------------------------------------------------'\n");
 }
 
 void mostrarCajero()
 {
     printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |                                                     Gulyx     |\n");
     printf("                          |                      Rango: Cajero                            |\n");
     printf("                          |                   Ingrese contrasena:                         |\n");
     printf("                          |                                                               |\n");
     printf("                          |                                                               |\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          '---------------------------------------------------------------'\n");
 }
 
 void inicioDuenio()
 {
     system("cls");
     printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |  Inicio de sesion exitoso                   Gulyx             |\n");
     printf("                          |                                                               |\n");
     printf("                          |  Seleccione una opcion:                                       |\n");
     printf("                          |                                                               |\n");
-    printf("                          | 1-Ingresar o eliminar empleado o gerente                      |\n");
+    printf("                          | 1-Ingresar/eliminar/ver empleado o gerente                    |\n");
     /*  printf("                          | 2-Ingresar productos al menu                                  |\n");*/
     printf("                          | 2-Ventas del dia                                              |\n");
     printf("                          | 3-Manejo de mesas                                             |\n");
     printf("                          |                                                               |\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          '---------------------------------------------------------------'\n");
 }
 
 void inicioGerente()
 {
     system("cls");
     printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |  Inicio de sesion exitoso                     Gulyx           |\n");
     printf("                          |                                                               |\n");
     printf("                          |  Seleccione una opcion:                                       |\n");
@@ -312,7 +480,7 @@ void inicioGerente()
     //  printf("                          | 2-Ingresar productos al menu                                  |\n");
     printf("                          | 2-Manejo de mesas                                             |\n");
     printf("                          |                                                               |\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          '---------------------------------------------------------------'\n");
 }
 
 /*void inicioCajero()
@@ -330,41 +498,41 @@ void inicioGerente()
     printf("                          ----------------------------------------------------------------\n");
 }*/
 
-void selecIngresoOwner()
+/*void selecIngresoOwner()
 {
     system("cls");
     printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |  Seleccione una opcion:                       Gulyx           |\n");
     printf("                          |                                                               |\n");
     printf("                          | 1-Empleado                                                    |\n");
     printf("                          | 2-Gerente                                                     |\n");
     printf("                          | 3-Volver al menu de opciones                                  |\n");
     printf("                          |                                                               |\n");
-    printf("                          ----------------------------------------------------------------\n");
-}
+    printf("                          '---------------------------------------------------------------'\n");
+}*/
 void ingEliEmpleado()
 {
 
     system("cls");
     printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |  Seleccione una opcion:                       Gulyx           |\n");
     printf("                          |                                                               |\n");
-    printf("                          |  1-Ingresar nuevo empleado                                    |\n");
-    //  printf("                          |  2-Editar empleado                                            |\n");
-    printf("                          |  2-Eliminar empleado                                          |\n");
-    printf("                          |  3-Volver al menu de opciones                                 |\n");
+    printf("                          |  1-Ver todos los empleados                                    |\n");
+    printf("                          |  2-Ingresar nuevo empleado                                    |\n");
+    printf("                          |  3-Eliminar empleado                                          |\n");
+    printf("                          |  4-Volver al menu de opciones                                 |\n");
     printf("                          |                                                               |\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          '---------------------------------------------------------------'\n");
 }
 
-void ingEliGerente()
+/*void ingEliGerente()
 {
 
     system("cls");
     printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |  Seleccione una opcion:                       Gulyx           |\n");
     printf("                          |                                                               |\n");
     printf("                          |  1-Ingresar nuevo gerente                                     |\n");
@@ -372,8 +540,8 @@ void ingEliGerente()
     printf("                          |  2-Eliminar gerente                                           |\n");
     printf("                          |  3-Volver al menu de opciones                                 |\n");
     printf("                          |                                                               |\n");
-    printf("                          ----------------------------------------------------------------\n");
-}
+    printf("                          '---------------------------------------------------------------'\n");
+}*/
 
 /*void ingStock()
 {
@@ -408,7 +576,7 @@ void manejoMesas()
 {
     system("cls");
     printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |  Seleccione una Mesa:                       Gulyx             |\n");
     printf("                          |                                                               |\n");
     printf("                          |                                                               |\n");
@@ -420,14 +588,14 @@ void manejoMesas()
     printf("                          |  0-Cerrar caja del dia                                        |\n");
     printf("                          |                                                               |\n");
     printf("                          |                                                               |\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          '---------------------------------------------------------------'\n");
 }
 
 void menuMesa()
 {
     system("cls");
     printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |  Seleccione una opcion:                       Gulyx           |\n");
     printf("                          |                                                               |\n");
     printf("                          |  1-Ingresar productos                                         |\n");
@@ -435,14 +603,14 @@ void menuMesa()
     printf("                          |  3-Cobrar Mesa                                                |\n");
     printf("                          |  4-Cancelar Mesa                                              |\n");
     printf("                          |  5-Volver al menu de Mesas                                    |\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          '---------------------------------------------------------------'\n");
 }
 
 void ingProductosMesa()
 {
     system("cls");
     printf("\n\n\n\n\n\n\n\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |  Seleccione una categoria:                       Gulyx        |\n");
     printf("                          |                                                               |\n");
     printf("                          | 1-Comidas                                                     |\n");
@@ -450,14 +618,14 @@ void ingProductosMesa()
     printf("                          | 3-Postres                                                     |\n");
     printf("                          | 4-Volver al menu de Mesas                                     |\n");
     printf("                          |                                                               |\n");
-    printf("                          ----------------------------------------------------------------\n");
+    printf("                          '---------------------------------------------------------------'\n");
 }
 
 void ingComidas()
 {
     system("cls");
     printf("\n\n\n");
-    printf("                          -----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |  Comidas:                                        Gulyx        |\n");
     printf("                          |                                                               |\n");
     printf("                          |  PASTAS--------------------------                PRECIO       |\n");
@@ -484,14 +652,14 @@ void ingComidas()
     printf("                          |                                                               |\n");
     printf("                          | 8-CARNE/POLLO/JYQ/CAPRESSE/HUMITA                 $70         |\n");
     printf("                          |                                                               |\n");
-    printf("                          -----------------------------------------------------------------\n");
+    printf("                          '---------------------------------------------------------------'\n");
 }
 
 void ingBebidas()
 {
     system("cls");
     printf("\n\n\n");
-    printf("                          -----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |                                                               |\n");
     printf("                          |  Bebidas:                                        Gulyx        |\n");
     printf("                          |                                                               |\n");
@@ -518,14 +686,14 @@ void ingBebidas()
     printf("                          |                                                               |\n");
     printf("                          |  8-CAIPIRINHA/CAIPIROSKA                          $340        |\n");
     printf("                          |                                                               |\n");
-    printf("                          -----------------------------------------------------------------\n");
+    printf("                          '---------------------------------------------------------------'\n");
 }
 
 void ingPostres()
 {
     system("cls");
     printf("\n\n\n");
-    printf("                          -----------------------------------------------------------------\n");
+    printf("                          .---------------------------------------------------------------.\n");
     printf("                          |                                                               |\n");
     printf("                          |  Postres:                                        Gulyx        |\n");
     printf("                          |                                                               |\n");
@@ -551,7 +719,7 @@ void ingPostres()
     printf("                          |                                                               |\n");
     printf("                          |  8-LEMONPIE                                       $280        |\n");
     printf("                          |                                                               |\n");
-    printf("                          -----------------------------------------------------------------\n");
+    printf("                          '---------------------------------------------------------------'\n");
 }
 void mostrarLogo()
 {
