@@ -193,9 +193,12 @@ void SeleccionUsuario(int tipoUsuario)
             mostrarDuenio();
             gotoxy(65, 11);
             passcomprobation = comprobarPass(tipoUsuario);
-            gotoxy(52, 11);
-            scanf("%d", &opmenu2);
-            menu2duenio(opmenu2);
+            do
+            {
+                gotoxy(52, 11);
+                scanf("%d", &opmenu2);
+                menu2duenio(opmenu2);
+            } while (opmenu2 != 0);
 
             break;
         case 2:
@@ -212,6 +215,7 @@ void SeleccionUsuario(int tipoUsuario)
             mostrarCajero();
             gotoxy(65, 11);
             passcomprobation = comprobarPass(tipoUsuario);
+            manejoMesas();
 
             break;
         }
@@ -239,6 +243,7 @@ void ingelempSwitch(int op)
     {
     case 1:
         mostrarArchEmpl();
+        system("pause");
         break;
 
     case 2:
@@ -266,50 +271,60 @@ Empleado agregarEmpl(int rolValido)
     printf("\n\n\n\n\n\n\n\n");
     printf("                          .---------------------------------------------------------------.\n");
     printf("                          |                                                    Gulyx      |\n");
-    printf("                          | ID del empleado:  %d                                          |\n", aux.id);
+    printf("                          | ID del empleado:  %d\                                         |\n", aux.id);
+    printf("                          |                                                               |\n");
     printf("                          |                                                               |\n");
     printf("                          |Ingrese SOLO el nombre:                                        |\n");
     printf("                          |                                                               |\n");
     printf("                          |Ingrese el apellido:                                           |\n");
-
+    printf("                          |                                                               |\n");
     if (rolValido == 1)
     {
         printf("                          |Seleccione un Rol:    1-Gerente  2-Cajero  3-Camarero          |\n");
+        printf("                          |                                                               |\n");
     }
     else
     {
         printf("                          |Seleccione un Rol:      1-Cajero  2-Camarero                   |\n");
+        printf("                          |                                                               |\n");
     }
     printf("                          |        Opcion:                                                |\n");
     printf("                          '---------------------------------------------------------------'\n");
-    gotoxy(53, 11);
+    fflush(stdin);
+    gotoxy(52, 13);
     gets(aux.nombre);
-    gotoxy(49, 13);
+    fflush(stdin);
+    gotoxy(49, 15);
     gets(aux.apellido);
     if (rolValido == 1)
     {
         do
         {
-            scanf("%d", opEmp);
+            gotoxy(44, 19);
+            scanf("%d", &opEmp);
         } while (opEmp < 0 || opEmp > 3);
     }
     else
     {
         do
         {
-            scanf("%d", opEmp);
+            gotoxy(44, 19);
+            scanf("%d", &opEmp);
         } while (opEmp < 0 || opEmp > 2);
     }
     aux.rol = opEmp;
 
     aux.activo = 1;
 
+    mostrarEmpleado(aux);
+
     return aux;
 }
 
 void addEmpFile(Empleado empleados)
 {
-    FILE *archi = fopen(datosempleados, "ab");
+    FILE *archi;
+    archi = fopen(datosempleados, "ab");
 
     if (archi == NULL)
     {
@@ -317,8 +332,9 @@ void addEmpFile(Empleado empleados)
     }
     else
     {
+
         fwrite(&empleados, sizeof(Empleado), 1, archi);
-        fclose(datosempleados);
+        fclose(archi);
     }
 }
 void cargEstrucYarchi(int rolValido)
@@ -328,6 +344,7 @@ void cargEstrucYarchi(int rolValido)
     while (seguir == 's')
     {
         aux = agregarEmpl(rolValido);
+        addEmpFile(aux);
         printf("Desea cargar otro empleado? s/n\n");
         fflush(stdin);
         scanf("%c", &seguir);
@@ -336,16 +353,29 @@ void cargEstrucYarchi(int rolValido)
 
 void mostrarEmpleado(Empleado empleados)
 {
-    printf("\n\n\n\n\n\n\n\n");
+    int roles = 0;
+
+    printf("\n\n\n");
     printf("                          .---------------------------------------------------------------.\n");
     printf("                          |                                                    Gulyx      |\n");
-    printf("                          | ID del empleado: %i                                           |\n", empleados.id);
+    printf("                          | ID del empleado: %i\                                          |\n", empleados.id);
     printf("                          |                                                               |\n");
     printf("                          |Ingrese SOLO el nombre: %s                                     |\n", empleados.nombre);
     printf("                          |                                                               |\n");
     printf("                          |Ingrese el apellido: %s                                        |\n", empleados.apellido);
     printf("                          |                                                               |\n");
-    printf("                          |Rol: %i                                                        |\n", empleados.rol);
+    if (empleados.rol == 1)
+    {
+        printf("                          |Rol: Gerente                                                   |\n");
+    }
+    else if (empleados.rol == 2)
+    {
+        printf("                          |Rol: Cajero                                                    |\n");
+    }
+    else
+    {
+        printf("                          |Rol: Camarero                                                  |\n");
+    }
     printf("                          |                                                               |\n");
     printf("                          '---------------------------------------------------------------'\n");
 }
@@ -383,12 +413,16 @@ void comprobarId(int idrand)
 
 void mostrarArchEmpl()
 {
+    system("cls");
     Empleado aux;
-    FILE *archi = fopen(datosempleados, "rb");
+    FILE *archi;
+    archi = fopen(datosempleados, "rb");
     if (archi != NULL)
     {
         while (fread(&aux, sizeof(Empleado), 1, archi) > 0)
         {
+            if (aux.activo == 1)
+                ;
             mostrarEmpleado(aux);
         }
         fclose(archi);
@@ -463,6 +497,7 @@ void inicioDuenio()
     /*  printf("                          | 2-Ingresar productos al menu                                  |\n");*/
     printf("                          | 2-Ventas del dia                                              |\n");
     printf("                          | 3-Manejo de mesas                                             |\n");
+    printf("                          | 0-Salir del programa                                          |\n");
     printf("                          |                                                               |\n");
     printf("                          '---------------------------------------------------------------'\n");
 }
