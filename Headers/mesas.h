@@ -6,6 +6,7 @@ void inicMesas(Mesa mesas[]);
 int buscarMesa(Mesa mesas[], int id);
 void desocuparMesa(Mesa *mesa);
 void mostrarMesas(Mesa mesas[]);
+void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa);
 
 typedef struct
 {
