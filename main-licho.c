@@ -118,7 +118,9 @@ int main()
             Pedido tmpPedido;
             ocuparMesa(&tmpMesa);
             ordenMesa(productos, productosCargados, &tmpMesa);
+            
             mostrarPedido(tmpMesa.pedidos[tmpMesa.cantOrd - 1]);
+            mesas[posMesa]= tmpMesa;
             //tmpPedido = tmpMesa.pedidos[0];
             //printf("%d\n", tmpPedido.id);
             //printf("%s %s", tmpPedido.items[0].nombre, tmpPedido.items[0].detalles);
