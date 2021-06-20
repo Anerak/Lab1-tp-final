@@ -118,7 +118,7 @@ int main()
             Pedido tmpPedido;
             ocuparMesa(&tmpMesa);
             ordenMesa(productos, productosCargados, &tmpMesa);
-            mostrarPedido(tmpMesa.pedidos[0]);
+            mostrarPedido(tmpMesa.pedidos[tmpMesa.cantOrd - 1]);
             //tmpPedido = tmpMesa.pedidos[0];
             //printf("%d\n", tmpPedido.id);
             //printf("%s %s", tmpPedido.items[0].nombre, tmpPedido.items[0].detalles);
@@ -251,16 +251,15 @@ int guardarProductos(Comida productos[PRODUCTOS_LIMITE])
 }
 void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa)
 {
-    Pedido temp;
+    Pedido *temp;
     Comida tempComida;
-    temp.cantItems = 0;
     int categoria = 0, idProducto = 0;
     int posProducto = 0;
     char seguir = 's';
-
-    mesa->pedidos[mesa->cantOrd] = temp;
-    temp.id = mesa->cantOrd + 1;
-    printf("%d", temp.id);
+    temp = &mesa->pedidos[mesa->cantOrd];
+    temp->cantItems = 0;
+    //mesa->pedidos[mesa->cantOrd] = temp;
+    temp->id = mesa->cantOrd + 1;
     do
     {
         printf("Elija la categoria 1 2 3\n");
@@ -270,15 +269,16 @@ void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa)
         {
         case 1:
             printf("Comidas\n");
+            fflush(stdin);
             scanf("%d", &idProducto);
             posProducto = buscarPosProducto(productos, size, idProducto);
             if (posProducto > -1)
             {
                 mesa->pedidos[mesa->cantOrd].items[mesa->pedidos->cantItems] = productos[posProducto];
-
                 tempComida = productos[posProducto];
-                temp.items[temp.cantItems] = tempComida;
-                temp.cantItems++;
+                printf("\nAgregando %s %s\n", tempComida.nombre, tempComida.detalles);
+                temp->items[temp->cantItems] = tempComida;
+                temp->cantItems++;
             }
             else
             {
@@ -299,7 +299,6 @@ void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa)
         fflush(stdin);
         scanf("%c", &seguir);
     } while (seguir == 's');
-    printf("CantItems: %d", temp.cantItems);
     mesa->cantOrd++;
 }
 int buscarPosProducto(Comida productos[PRODUCTOS_LIMITE], int size, int id)
