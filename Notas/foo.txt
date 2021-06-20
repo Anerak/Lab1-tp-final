@@ -1,3 +1,5 @@
 Acá podemos dejar notas, por las dudas.
 
 a casa tonto yo ya lo tengo 
+
+"c": "cd $dir && gcc -std=c99 $fileName menu.c empleados.c mesas.c productos.c pedidos.c ventas.c  -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
