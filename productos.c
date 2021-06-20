@@ -1,91 +1,24 @@
 #include "Headers\\productos.h"
 
-#include <stdio.h>
-#include <string.h>
 
 
-#define PRODUCTOS_LIMITE 50
 
-typedef enum
-{
-    Entrada,
-    Plato_principal,
-    Postre,
-    Bebida
-} ComidaTipo;
 
-typedef enum
-{
-    Pastas = 100,
-    Minutas,
-    Pizzas,
-    Empanadas,
-    Gaseosas = 200,
-    Aguas,
-    Vinos,
-    Tragos,
-    Helados = 300,
-    Flan,
-    Cupcakes
-} ComidaSubcategoria;
-
-typedef struct
-{
-    int id;
-    int activo;
-    char nombre[40];
-    char detalles[40];
-    float precio;
-    ComidaTipo comida_tipo;
-    ComidaSubcategoria subCategoria;
-} Comida;
-
-int productosPrueba(Comida productos[]);
-int agregarProducto(Comida *producto, char nombre[40], char detalles[40], float precio, int id, int comidaTipo, int comidaSubcategoria);
-void mostrarProducto(Comida producto);
-int guardarProductos(Comida productos[PRODUCTOS_LIMITE]);
-
-int main()
-{
-    Comida productos[PRODUCTOS_LIMITE];
-    if (productosPrueba(productos))
-    {
-        printf("Productos de prueba anadidos satisfactoriamente");
-    }
-    guardarProductos(productos);
-    return 0;
-}
+//int main()
+//{
+//    Comida productos[PRODUCTOS_LIMITE];
+//    if (productosPrueba(productos))
+//    {
+//        printf("Productos de prueba anadidos satisfactoriamente");
+//    }
+//    guardarProductos(productos);
+//    return 0;
+//}
 
 int productosPrueba(Comida productos[])
 {
     char *nombres[] = {
-        "Sorrentinos",
-        "Canelones",
-        "Fideos",
-        "Milanesa",
-        "Hamburguesa",
-        "Pechuga Grille",
-        "Pizza",
-        "Pizza",
-        "Pizza",
-        "Empanadas",
-        "Empanadas",
-        "Empanadas",
-        "Empanadas",
-        "Empanadas",
-        "Coca Cola",
-        "Sprite",
-        "Fanta",
-        "Agua",
-        "Agua",
-        "Gatorade",
-        "Vasco Viejo 3/4",
-        "Vasco Viejo 3/4",
-        "Santa Julia 3/4",
-        "Fernet",
-        "Gin Tonic",
-        "Caipirinha",
-        "Caipiroska", "Almendrado", "Tricolor", "Bombon", "Bombon", "Bocha de helado", "Bocha de helado", "Flan", "Flan", "Flan", "Chocotorta", "Lemon Pie"};
+        "Sorrentinos","Canelones","Fideos","Milanesa","Hamburguesa","Pechuga Grille","Pizza","Pizza","Pizza","Empanadas","Empanadas","Empanadas","Empanadas","Empanadas","Coca Cola","Sprite","Fanta","Agua","Agua","Gatorade","Vasco Viejo 3/4","Vasco Viejo 3/4","Santa Julia 3/4","Fernet","Gin Tonic","Caipirinha","Caipiroska", "Almendrado", "Tricolor", "Bombon", "Bombon", "Bocha de helado", "Bocha de helado", "Flan", "Flan", "Flan", "Chocotorta", "Lemon Pie"};
     char *detalles[] = {
         "con bolognesa", "con filetto", "con salsa blanca", "a caballo", "completa", "con ensalada", "Napolitana", "Especial", "Extra Gulyx", "Carne", "Pollo", "Jamon y Queso", "Capresse", "Humita", "", "", "", "Saborizada", "c/s gas", "", "Tinto", "Blanco", "Blanco", "con Coca Cola", "", "", "", "", "", "Suizo", "Escoces", "Chocolate", "Vainilla", "solo", "con dulce de leche o crema", "mixto", "", ""};
     float precios[] = {
