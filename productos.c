@@ -1,5 +1,8 @@
+#include "Headers\\productos.h"
+
 #include <stdio.h>
 #include <string.h>
+
 
 #define PRODUCTOS_LIMITE 50
 
