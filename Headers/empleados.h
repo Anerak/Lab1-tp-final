@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 typedef enum
 {
     Mesero,
@@ -14,3 +16,6 @@ typedef struct
     char apellido[20];
     Rol rol;
 } Empleado;
+
+Empleado agregarEmpl(int rolValido);
+void mostrarArchEmpl();
