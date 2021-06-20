@@ -1,4 +1,4 @@
-#include "Headers\\pedidos.h"
+#include "pedidos.h"
 #define CANT_MESA 10
 
 void ocuparMesa(Mesa *mesa);

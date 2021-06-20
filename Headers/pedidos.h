@@ -1,4 +1,4 @@
-#include "Headers\\productos.h"
+#include "productos.h"
 
 typedef struct Pedido
 {
