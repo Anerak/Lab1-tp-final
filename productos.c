@@ -47,7 +47,7 @@ int main()
     Comida productos[PRODUCTOS_LIMITE];
     if (productosPrueba(productos))
     {
-        printf("Productos de prueba añadidos satisfactoriamente");
+        printf("Productos de prueba anadidos satisfactoriamente");
     }
     guardarProductos(productos);
     return 0;
@@ -93,7 +93,8 @@ int productosPrueba(Comida productos[])
         Pastas, Pastas, Pastas, Minutas, Minutas, Minutas, Pizzas, Pizzas, Pizzas, Empanadas, Empanadas, Empanadas, Empanadas, Empanadas, Gaseosas, Gaseosas, Gaseosas, Aguas, Aguas, Aguas, Vinos, Vinos, Vinos, Tragos, Tragos, Tragos, Tragos, Helados, Helados, Helados, Helados, Helados, Helados, Flan, Flan, Flan, Cupcakes, Cupcakes};
 
     int size = sizeof(nombres) / sizeof(nombres[0]);
-    for (int i = 0; i < size; i++)
+    int i = 0;
+    for (i; i < size; i++)
     {
         if (nombres[i] == NULL && detalles[i] == NULL)
         {
