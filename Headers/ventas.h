@@ -17,3 +17,9 @@ typedef struct
 } Venta;
 
 #define ventasTotales "ventas.dat"
+int ventaidRandom();
+int comprobarIdventa(int idrand);
+Venta cargaVenta(int cobroTotal);
+void cargarVentaArchivo(Venta cobro);
+void mostrarVenta(Venta unaVenta);
+void totalVentas();

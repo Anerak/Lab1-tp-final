@@ -1,6 +1,6 @@
 #include "Headers\\ventas.h"
 
-int idRandom()
+int ventaidRandom()
 {
     int numrand = 0;
     int comprobation = 0;
@@ -9,13 +9,13 @@ int idRandom()
 
         numrand = 1 + rand() % 1000;
 
-        comprobation = comprobarId(numrand);
+        comprobation = comprobarIdventa(numrand);
 
     } while (comprobation == 1);
 
     return numrand;
 }
-int comprobarId(int idrand)
+int comprobarIdventa(int idrand)
 {
     FILE *archi = fopen(ventasTotales, "rb");
     Venta aux;
@@ -67,7 +67,7 @@ Venta cargaVenta(int cobroTotal)
     {
         aux.medio_pago = 1;
     }
-    aux.id = idRandom();
+    aux.id = ventaidRandom();
 }
 //funcion cargar archivo con los cobrarmesa
 void cargarVentaArchivo(Venta cobro)
@@ -90,7 +90,7 @@ void mostrarVenta(Venta unaVenta)
 {
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    SYSTEM("CLS");
+    system("cls");
     printf("\n\n\n\n\n\n\n\n");
     printf("                          .-----------------------------------.\n");
     printf("                          |                        Gulyx      |\n");
