@@ -1,4 +1,17 @@
 #include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include "utils.h"
+#include "menu.h"
+
+//contraseña duenño
+#define passOwner "admin1234"
+//contraseña gerente
+#define passManager "manag123"
+//contraseña cajero
+#define passEmploy "gul123"
+
+#define datosempleados "empleado.dat"
 
 typedef enum
 {
@@ -19,3 +32,12 @@ typedef struct
 
 Empleado agregarEmpl(int rolValido);
 void mostrarArchEmpl();
+void comprobarId(int idrand);
+int idRandom();
+void mostrarEmpleado(Empleado empleados);
+void cargEstrucYarchi(int rolValido);
+void addEmpFile(Empleado empleados);
+void ingelempSwitch(int op);
+void menu2duenio(int op);
+void SeleccionUsuario(int tipoUsuario);
+int comprobarPass(int tipoUsuario);

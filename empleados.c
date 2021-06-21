@@ -166,3 +166,181 @@ void addEmpFile(Empleado empleados)
         fclose(archi);
     }
 }
+int comprobarPass(int tipoUsuario)
+{
+
+    char password[9];
+    char caracter;
+    int flag = 0;
+    int c = 0;
+
+    switch (tipoUsuario)
+    {
+    case 1:
+        while (caracter = getch())
+        {
+            if (caracter == 13)
+            {
+                password[c] = '\0';
+                break;
+            }
+            else
+            {
+                printf("*");
+                password[c] = caracter;
+                c++;
+            }
+        }
+        if (strcmp(password, passOwner) == 0)
+        {
+            inicioDuenio();
+        }
+        else
+        {
+            gotoxy(65, 11);
+            printf("Contrasena incorrecta");
+            gotoxy(46, 13);
+            system("pause");
+            flag = 1;
+        }
+        break;
+    case 2:
+
+        while (caracter = getch())
+        {
+            if (caracter == 13)
+            {
+                password[c] = '\0';
+                break;
+            }
+            else
+            {
+                printf("*");
+                password[c] = caracter;
+                c++;
+            }
+        }
+        if (strcmp(password, passManager) == 0)
+        {
+            inicioGerente();
+        }
+        else
+        {
+            gotoxy(65, 11);
+            printf("Contrasena incorrecta");
+            gotoxy(46, 13);
+            system("pause");
+            flag = 1;
+        }
+
+    case 3:
+        while (caracter = getch())
+        {
+            if (caracter == 13)
+            {
+                password[c] = '\0';
+                break;
+            }
+            else
+            {
+                printf("*");
+                password[c] = caracter;
+                c++;
+            }
+        }
+        if (strcmp(password, passEmploy) == 0)
+        {
+            manejoMesas();
+        }
+        else
+        {
+            gotoxy(65, 11);
+            printf("Contrasena incorrecta");
+            gotoxy(46, 13);
+            system("pause");
+            flag = 1;
+        }
+    }
+
+    return flag;
+}
+
+void SeleccionUsuario(int tipoUsuario)
+{
+    system("cls");
+    char password[9];
+    char caracter;
+    int flag = 0;
+    int c = 0;
+    int passcomprobation = 0;
+    int opmenu2 = 0;
+    do
+    {
+        switch (tipoUsuario)
+        {
+
+        case 1:
+
+            system("cls");
+            mostrarDuenio();
+            gotoxy(65, 11);
+            passcomprobation = comprobarPass(tipoUsuario);
+            do
+            {
+                gotoxy(52, 11);
+                scanf("%d", &opmenu2);
+                menu2duenio(opmenu2);
+            } while (opmenu2 != 0);
+
+            break;
+        case 2:
+
+            system("cls");
+            mostrarGerente();
+            gotoxy(65, 11);
+            passcomprobation = comprobarPass(tipoUsuario);
+
+            break;
+        case 3:
+
+            system("cls");
+            mostrarCajero();
+            gotoxy(65, 11);
+            passcomprobation = comprobarPass(tipoUsuario);
+            manejoMesas();
+
+            break;
+        }
+    } while (passcomprobation == 1);
+}
+void menu2duenio(int op)
+{
+    int opelegida = 0;
+    switch (op)
+    {
+    case 1:
+        ingEliEmpleado();
+        gotoxy(55, 9);
+        scanf("%d", &opelegida);
+        ingelempSwitch(opelegida);
+
+        break;
+    }
+}
+
+void ingelempSwitch(int op)
+{
+
+    switch (op)
+    {
+    case 1:
+        mostrarArchEmpl();
+        system("pause");
+        break;
+
+    case 2:
+        cargEstrucYarchi(1);
+
+        break;
+    }
+}
