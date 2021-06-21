@@ -88,7 +88,6 @@ int buscarPosProducto(Comida productos[PRODUCTOS_LIMITE], int size, int id)
             return i;
         }
     }
-    printf("No se pudo encontrar el producto en buscarPosProducto");
     return -1;
 }
 

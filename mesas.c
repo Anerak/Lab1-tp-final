@@ -36,7 +36,7 @@ void desocuparMesa(Mesa *mesa)
 void mostrarMesas(Mesa mesas[])
 {
     system("cls");
-    printf("Mesas disponibles\n\n");
+    printf("\t\tMesas disponibles\n\n");
     for (int i = 0; i < CANT_MESA; i++)
     {
         if ((i % 3 == 0) && i > 0)
@@ -53,7 +53,6 @@ void mostrarMesas(Mesa mesas[])
         }
     }
     printf("\n\n");
-    system("pause");
 }
 
 void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa)
@@ -145,6 +144,7 @@ void mesasMenuFunciones(Comida productos[PRODUCTOS_LIMITE], int size, Mesa mesas
         {
         case 1:
             mostrarMesas(mesas);
+            system("pause");
             break;
         case 2:
             ocuparMesa(&mesas[elegirMesa(mesas)]);
@@ -172,6 +172,7 @@ int elegirMesa(Mesa mesas[CANT_MESA])
     system("cls");
     printf("\nElija una mesa\n");
     mostrarMesas(mesas);
+    printf("\nIngrese la mesa elegida: ");
     scanf("%d", &mesaId);
     mesaId -= 1;
     return mesaId;

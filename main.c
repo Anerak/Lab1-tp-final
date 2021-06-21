@@ -18,6 +18,7 @@
 
 int main()
 {
+    system("cls");
     Empleado empleados[50];
     system("COLOR B0");
     srand(time(NULL));
