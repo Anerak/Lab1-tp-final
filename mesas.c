@@ -35,7 +35,7 @@ void desocuparMesa(Mesa *mesa)
 }
 void mostrarMesas(Mesa mesas[])
 {
-    printf("Mesas disponibles\n");
+    printf("Mesas disponibles\n\n");
     for (int i = 0; i < CANT_MESA; i++)
     {
         if ((i % 3 == 0) && i > 0)
@@ -51,7 +51,7 @@ void mostrarMesas(Mesa mesas[])
             printf("\t\t\b|%d|", mesas[i].id);
         }
     }
-    printf("\n");
+    printf("\n\n");
 }
 void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa)
 {

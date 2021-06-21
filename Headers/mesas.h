@@ -10,7 +10,7 @@ typedef struct
     Pedido pedidos[30];
 } Mesa;
 
-#define CANT_MESA 10
+#define CANT_MESA 12
 
 void ocuparMesa(Mesa *mesa);
 void inicMesas(Mesa mesas[]);
@@ -19,6 +19,6 @@ void desocuparMesa(Mesa *mesa);
 void mostrarMesas(Mesa mesas[]);
 void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa);
 void restablecerMesas(Mesa mesas[]);
-void vaciarMesa (Mesa *mesa);
+void vaciarMesa(Mesa *mesa);
 void menuMesas();
-void funcionesMesas ();
+void funcionesMesas();
