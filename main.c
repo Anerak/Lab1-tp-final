@@ -33,7 +33,8 @@ int main()
     switch (tipoUsuario)
     {
     case 1:
-        menu2duenio();
+        menuPrincipalDuenio();
+        //menu2duenio();
         break;
     case 2:
         mostrarGerente();
@@ -44,7 +45,8 @@ int main()
     default:
         break;
     }
+    system("cls");
     printf("\nSaliendo. Gracias por usar el programa\n");
-    system("color");
+    system("color 07");
     return 0;
 }
