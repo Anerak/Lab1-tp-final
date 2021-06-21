@@ -33,6 +33,8 @@ void ocuparMesa(Mesa *mesa)
 {
     if (mesa->ocupada == 1)
     {
+        printf("\nLa mesa %d ya esta ocupada\n", mesa->id);
+        system("pause");
         return;
     }
     mesa->ocupada = 1;
