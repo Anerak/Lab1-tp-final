@@ -42,3 +42,4 @@ int agregarProducto(Comida *producto, char nombre[40], char detalles[40], float 
 void mostrarProducto(Comida producto);
 int guardarProductos(Comida productos[PRODUCTOS_LIMITE]);
 int buscarPosProducto(Comida productos[PRODUCTOS_LIMITE], int size, int id);
+void mostrarCarta(Comida productos[PRODUCTOS_LIMITE], int size)

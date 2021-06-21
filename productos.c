@@ -1,9 +1,5 @@
 #include "Headers\\productos.h"
 
-
-
-
-
 //int main()
 //{
 //    Comida productos[PRODUCTOS_LIMITE];
@@ -18,7 +14,7 @@
 int productosPrueba(Comida productos[])
 {
     char *nombres[] = {
-        "Sorrentinos","Canelones","Fideos","Milanesa","Hamburguesa","Pechuga Grille","Pizza","Pizza","Pizza","Empanadas","Empanadas","Empanadas","Empanadas","Empanadas","Coca Cola","Sprite","Fanta","Agua","Agua","Gatorade","Vasco Viejo 3/4","Vasco Viejo 3/4","Santa Julia 3/4","Fernet","Gin Tonic","Caipirinha","Caipiroska", "Almendrado", "Tricolor", "Bombon", "Bombon", "Bocha de helado", "Bocha de helado", "Flan", "Flan", "Flan", "Chocotorta", "Lemon Pie"};
+        "Sorrentinos", "Canelones", "Fideos", "Milanesa", "Hamburguesa", "Pechuga Grille", "Pizza", "Pizza", "Pizza", "Empanadas", "Empanadas", "Empanadas", "Empanadas", "Empanadas", "Coca Cola", "Sprite", "Fanta", "Agua", "Agua", "Gatorade", "Vasco Viejo 3/4", "Vasco Viejo 3/4", "Santa Julia 3/4", "Fernet", "Gin Tonic", "Caipirinha", "Caipiroska", "Almendrado", "Tricolor", "Bombon", "Bombon", "Bocha de helado", "Bocha de helado", "Flan", "Flan", "Flan", "Chocotorta", "Lemon Pie"};
     char *detalles[] = {
         "con bolognesa", "con filetto", "con salsa blanca", "a caballo", "completa", "con ensalada", "Napolitana", "Especial", "Extra Gulyx", "Carne", "Pollo", "Jamon y Queso", "Capresse", "Humita", "", "", "", "Saborizada", "c/s gas", "", "Tinto", "Blanco", "Blanco", "con Coca Cola", "", "", "", "", "", "Suizo", "Escoces", "Chocolate", "Vainilla", "solo", "con dulce de leche o crema", "mixto", "", ""};
     float precios[] = {
@@ -95,4 +91,54 @@ int buscarPosProducto(Comida productos[PRODUCTOS_LIMITE], int size, int id)
     }
     printf("No se pudo encontrar el producto en buscarPosProducto");
     return -1;
+}
+
+void mostrarCarta(Comida productos[PRODUCTOS_LIMITE], int size)
+{
+    Comida tmp;
+
+    printf("-----------------------\n");
+    printf("|\tMenu\n");
+    printf("-----------------------\n");
+
+    for (int x = 0; x < 4; x++)
+    {
+        if (x > 0)
+        {
+            printf("\n-----------------------\n");
+            printf("|\t");
+        }
+        switch (x)
+        {
+        //case 0:
+        //    printf("Entradas\n");
+        //    break;
+        case 1:
+            printf("Platos principales\n");
+            break;
+        case 2:
+            printf("Postres\n");
+            break;
+        case 3:
+            printf("Bebidas\n");
+            break;
+        default:
+            break;
+        }
+        if (x > 0)
+        {
+
+            printf("-----------------------\n");
+        }
+
+        for (int i = 0; i < size; i++)
+        {
+            if (productos[i].comida_tipo == x)
+            {
+                tmp = productos[i];
+                printf("|\t(%d) %s %s\n", tmp.id, tmp.nombre, tmp.detalles);
+                printf("|\t\t $%.2f\n", tmp.precio);
+            }
+        }
+    }
 }
