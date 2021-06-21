@@ -325,6 +325,8 @@ void SeleccionUsuario(int tipoUsuario)
         manejoMesas();
 
         break;
+    default:
+        break;
     }
 }
 void menu2duenio(int op)
@@ -339,6 +341,8 @@ void menu2duenio(int op)
             scanf("%d", &opelegida);
             ingelempSwitch(opelegida);
 
+            break;
+        default:
             break;
         }
 
@@ -403,7 +407,7 @@ void elimiEmpArchi(int idrecibido)
 
         if (aux.id == idrecibido)
         {
-            printf("hola xd%s", aux.nombre);
+
             flag = 1;
         }
     }
