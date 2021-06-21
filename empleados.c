@@ -180,103 +180,56 @@ int comprobarPass(int tipoUsuario)
     int flag = 0;
     int c = 0;
 
-    switch (tipoUsuario)
+    while (caracter = getch())
     {
-    case 1:
-        while (caracter = getch())
+        if (caracter == 13)
         {
-            if (caracter == 13)
-            {
-                password[c] = '\0';
-                break;
-            }
-            else
-            {
-                printf("*");
-                password[c] = caracter;
-                c++;
-            }
-        }
-        if (strcmp(password, passOwner) == 0)
-        {
-            inicioDuenio();
+            password[c] = '\0';
+            break;
         }
         else
         {
-            gotoxy(65, 11);
-            printf("Contrasena incorrecta");
-            gotoxy(46, 13);
-            system("pause");
-
-            flag = 1;
-        }
-        break;
-    case 2:
-
-        while (caracter = getch())
-        {
-            if (caracter == 13)
-            {
-                password[c] = '\0';
-                break;
-            }
-            else
-            {
-                printf("*");
-                password[c] = caracter;
-                c++;
-            }
-        }
-        if (strcmp(password, passManager) == 0)
-        {
-            inicioGerente();
-        }
-        else
-        {
-            gotoxy(65, 11);
-            printf("Contrasena incorrecta");
-            gotoxy(46, 13);
-            system("pause");
-
-            flag = 1;
-        }
-
-    case 3:
-        while (caracter = getch())
-        {
-            if (caracter == 13)
-            {
-                password[c] = '\0';
-                break;
-            }
-            else
-            {
-                printf("*");
-                password[c] = caracter;
-                c++;
-            }
-        }
-        if (strcmp(password, passEmploy) == 0)
-        {
-            manejoMesas();
-        }
-        else
-        {
-            gotoxy(65, 11);
-            printf("Contrasena incorrecta");
-            gotoxy(46, 13);
-            system("pause");
-
-            flag = 1;
+            printf("*");
+            password[c] = caracter;
+            c++;
         }
     }
 
-    return flag;
+    switch (tipoUsuario)
+    {
+    case 1:
+        if (strcmp(password, passOwner) == 0)
+        {
+            inicioDuenio();
+            return 1;
+        }
+        break;
+    case 2:
+        if (strcmp(password, passManager) == 0)
+        {
+            inicioGerente();
+            return 1;
+        }
+        break;
+    case 3:
+        if (strcmp(password, passEmploy) == 0)
+        {
+            manejoMesas();
+            return 1;
+        }
+        break;
+    }
+
+    gotoxy(65, 11);
+    printf("Contrasena incorrecta");
+    gotoxy(46, 13);
+    system("pause");
+
+    return 0;
 }
 
-void SeleccionUsuario(int tipoUsuario)
+int SeleccionUsuario()
 {
-    system("cls");
     char password[9];
     char caracter;
     int flag = 0;
@@ -284,49 +237,41 @@ void SeleccionUsuario(int tipoUsuario)
     int passcomprobation = 0;
     int opmenu2 = 0;
 
+    int tipoUsuario = 0;
+
+    do
+    {
+        system("cls");
+        mostrarMenu();
+        gotoxy(85, 11);
+        scanf("%d", &tipoUsuario);
+    } while (tipoUsuario < 0 || tipoUsuario > 3);
+
+    system("cls");
     switch (tipoUsuario)
     {
 
     case 1:
-        do
-        {
-            system("cls");
-            mostrarDuenio();
-            gotoxy(65, 11);
-            passcomprobation = comprobarPass(tipoUsuario);
-        } while (passcomprobation == 1);
-        do
-        {
-            gotoxy(52, 11);
-            scanf("%d", &opmenu2);
-            menu2duenio(opmenu2);
-        } while (opmenu2 != 0);
+        mostrarDuenio();
 
         break;
     case 2:
-        do
-        {
-            system("cls");
-            mostrarGerente();
-            gotoxy(65, 11);
-
-            passcomprobation = comprobarPass(tipoUsuario);
-        } while (passcomprobation == 1);
+        mostrarGerente();
         break;
     case 3:
-        do
-        {
-            system("cls");
-            mostrarCajero();
-            gotoxy(65, 11);
-
-            passcomprobation = comprobarPass(tipoUsuario);
-        } while (passcomprobation == 1);
-        manejoMesas();
-
+        mostrarCajero();
         break;
     }
+    gotoxy(65, 11);
+
+    if (comprobarPass(tipoUsuario))
+    {
+        return tipoUsuario;
+    }
+
+    return 0;
 }
+
 void menu2duenio(int op)
 {
     int opelegida = 0;
