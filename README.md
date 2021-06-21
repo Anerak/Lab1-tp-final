@@ -2,11 +2,25 @@
 
 ## Indice
 
+* [Compilar](#Compilar)
 * [Empleados](#Empleados)
 * [Comida](#Comida)
 * [Ordenes](#Orden)
 * [Mesas](#Mesa)
 * [Transacciones](#Transacción)
+
+## Compilar
+
+Para compilar, agremos la siguiente línea a `settings.json` de VSCode.
+```json
+"c": "start cmd.exe /k \"cd $dir && gcc -std=c99 $fileName menu.c empleados.c mesas.c productos.c pedidos.c ventas.c utils.c -o $fileNameWithoutExt && $dir$fileNameWithoutExt\"",
+```
+
+### Si no se esta usando VSCode, usar la siguiente línea en Command Prompt, estando en el directorio del proyecto.
+
+```bat
+start cmd.exe /k \"cd $dir && gcc -std=c99 main.c menu.c empleados.c mesas.c productos.c pedidos.c ventas.c utils.c -o gulyx.exe && gulyx.exe"
+```
 
 ## Empleados
 
