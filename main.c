@@ -23,19 +23,27 @@ int main()
     srand(time(NULL));
 
     int tipoUsuario = 0;
-    int devolUsuario = 0;
 
     mostrarLogo();
-
     do
     {
-        system("cls");
-        mostrarMenu();
-        gotoxy(85, 11);
-        scanf("%d", &tipoUsuario);
-    } while (tipoUsuario < 0 || tipoUsuario > 3);
+        tipoUsuario = SeleccionUsuario();
+    } while (tipoUsuario == 0);
 
-    SeleccionUsuario(tipoUsuario);
+    switch (tipoUsuario)
+    {
+    case 1:
+        mostrarDuenio();
+        break;
+    case 2:
+        mostrarGerente();
+        break;
+    case 3:
+        mostrarCajero();
+        break;
+    default:
+        break;
+    }
 
     return 0;
 }
