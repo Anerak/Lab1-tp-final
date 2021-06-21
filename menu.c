@@ -164,6 +164,20 @@ void manejoMesas()
     printf("                          |                                                               |\n");
     printf("                          '---------------------------------------------------------------'\n");
 }
+
+void cierrePrograma()
+{
+    printf("\n\n\n\n\n\n\n");
+    printf("                          .---------------------------------------------------------------.\n");
+    printf("                          |                                             Gulyx             |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |                Gracias por utilizar el programa               |\n");
+    printf("                          |                            Saludos.                           |\n");
+    printf("                          |                                                               |\n");
+    printf("                          |                                                               |\n");
+    printf("                          '---------------------------------------------------------------'\n");
+}
 /*void ventasDiaras()
 {
     system("cls");
@@ -279,8 +293,8 @@ void inicioGerente()
     printf("                          |  Seleccione una opcion:                                       |\n");
     printf("                          |                                                               |\n");
     printf("                          | 1-Ingresar o eliminar empleado                                |\n");
-    //  printf("                          | 2-Ingresar productos al menu                                  |\n");
     printf("                          | 2-Manejo de mesas                                             |\n");
+    printf("                          | 0-Cerrar programa                                             |\n");
     printf("                          |                                                               |\n");
     printf("                          '---------------------------------------------------------------'\n");
 }

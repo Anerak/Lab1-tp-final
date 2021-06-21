@@ -18,12 +18,12 @@ Empleado agregarEmpl(int rolValido)
     printf("                          |                                                               |\n");
     if (rolValido == 1)
     {
-        printf("                          |Seleccione un Rol:    1-Gerente  2-Cajero  3-Camarero          |\n");
+        printf("                          |Seleccione un Rol:    1-Camarero  2-Cajero  3-Gerente          |\n");
         printf("                          |                                                               |\n");
     }
     else
     {
-        printf("                          |Seleccione un Rol:      1-Cajero  2-Camarero                   |\n");
+        printf("                          |Seleccione un Rol:      1-Camarero  2-Cajero                   |\n");
         printf("                          |                                                               |\n");
     }
     printf("                          |        Opcion:                                                |\n");
@@ -50,14 +50,14 @@ Empleado agregarEmpl(int rolValido)
             scanf("%d", &opEmp);
         } while (opEmp < 0 || opEmp > 2);
     }
-    aux.rol = opEmp;
+    aux.rol = opEmp - 1;
 
     aux.activo = 1;
 
     return aux;
 }
 
-void mostrarArchEmpl()
+void mostrarArchEmpl(int rolValido)
 {
     system("cls");
     Empleado aux;
@@ -68,7 +68,11 @@ void mostrarArchEmpl()
         while (fread(&aux, sizeof(Empleado), 1, archi) > 0)
         {
 
-            if (aux.activo != 0)
+            if (aux.activo != 0 && rolValido == 1)
+            {
+                mostrarEmpleado(aux);
+            }
+            else if (aux.activo != 0 && aux.rol < 2 && rolValido == 0)
             {
                 mostrarEmpleado(aux);
             }
@@ -134,11 +138,11 @@ void mostrarEmpleado(Empleado empleados)
     printf("                          |                                                               |\n");
     printf("                          |Ingrese el apellido: %s                                        \n", empleados.apellido);
     printf("                          |                                                               |\n");
-    if (empleados.rol == 1)
+    if (empleados.rol == 2)
     {
         printf("                          |Rol: Gerente                                                   |\n");
     }
-    else if (empleados.rol == 2)
+    else if (empleados.rol == 1)
     {
         printf("                          |Rol: Cajero                                                    |\n");
     }
@@ -297,12 +301,43 @@ void menuPrincipalDuenio()
             return;
             break;
         case 1:
-            menu2duenio();
+            menu2duenio(1);
             break;
         case 2:
+            funcionesMesas();
             break;
         case 3:
             printf("");
+            break;
+        default:
+            break;
+        }
+
+    } while (op != 0);
+}
+void menuPrincipalGerente()
+{
+    int op = 0;
+
+    do
+    {
+        system("cls");
+        inicioGerente();
+        gotoxy(55, 11);
+        scanf("%d", &op);
+
+        switch (op)
+        {
+        case 0:
+            return;
+            break;
+        case 1:
+            menu2duenio(0);
+            break;
+        case 2:
+            funcionesMesas();
+            break;
+        default:
             break;
         }
 
@@ -310,7 +345,7 @@ void menuPrincipalDuenio()
 }
 
 // Menu y switch de opciones para empleados
-void menu2duenio()
+void menu2duenio(int rolValido)
 {
     int op = 0;
 
@@ -328,13 +363,13 @@ void menu2duenio()
             return;
             break;
         case 1:
-            mostrarArchEmpl();
+            mostrarArchEmpl(rolValido);
             break;
         case 2:
-            cargEstrucYarchi(1);
+            cargEstrucYarchi(rolValido);
             break;
         case 3:
-            elimiYmostrarEmp();
+            elimiYmostrarEmp(rolValido);
             break;
         default:
             break;
@@ -342,22 +377,23 @@ void menu2duenio()
     } while (op != 4);
 }
 
-void ingelempSwitch(int op)
+/*void ingelempSwitch(int op)
 {
 
     switch (op)
     {
     case 1:
-        mostrarArchEmpl();
+        mostrarArchEmpl(1);
         system("pause");
         break;
 
     case 2:
+
         cargEstrucYarchi(1);
 
         break;
     case 3:
-        elimiYmostrarEmp();
+        elimiYmostrarEmp(1);
 
         break;
     case 4:
@@ -365,7 +401,7 @@ void ingelempSwitch(int op)
     default:
         break;
     }
-}
+}*/
 
 int buscarEmpleadoID(int idrecibido)
 {
@@ -411,11 +447,11 @@ void elimiEmpArchi(int idrecibido)
     fclose(archi);
 }
 
-void elimiYmostrarEmp()
+void elimiYmostrarEmp(int rolValido)
 {
     int idrecibido = 0;
     int flag = 0;
-    mostrarArchEmpl();
+    mostrarArchEmpl(rolValido);
     printf("Coloque el ID del empleado que desea eliminar:\n");
     do
     {

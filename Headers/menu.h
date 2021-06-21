@@ -17,3 +17,4 @@ void mostrarCajero();
 void mostrarGerente();
 void mostrarDuenio();
 void mostrarMenu();
+void cierrePrograma();

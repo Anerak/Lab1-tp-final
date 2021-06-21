@@ -37,7 +37,7 @@ int main()
         //menu2duenio();
         break;
     case 2:
-        mostrarGerente();
+        menuPrincipalGerente();
         break;
     case 3:
         mostrarCajero();
@@ -46,7 +46,7 @@ int main()
         break;
     }
     system("cls");
-    printf("\nSaliendo. Gracias por usar el programa\n");
+    cierrePrograma();
     system("color 07");
     return 0;
 }
