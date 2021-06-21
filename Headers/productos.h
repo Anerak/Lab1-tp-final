@@ -3,12 +3,6 @@
 
 #define PRODUCTOS_LIMITE 50
 
-
-int productosPrueba(Comida productos[]);
-int agregarProducto(Comida *producto, char nombre[40], char detalles[40], float precio, int id, int comidaTipo, int comidaSubcategoria);
-void mostrarProducto(Comida producto);
-int guardarProductos(Comida productos[PRODUCTOS_LIMITE]);
-
 typedef enum
 {
     Entrada,
@@ -42,3 +36,9 @@ typedef struct
     ComidaTipo comida_tipo;
     ComidaSubcategoria subCategoria;
 } Comida;
+
+int productosPrueba(Comida productos[]);
+int agregarProducto(Comida *producto, char nombre[40], char detalles[40], float precio, int id, int comidaTipo, int comidaSubcategoria);
+void mostrarProducto(Comida producto);
+int guardarProductos(Comida productos[PRODUCTOS_LIMITE]);
+int buscarPosProducto(Comida productos[PRODUCTOS_LIMITE], int size, int id);

@@ -83,3 +83,16 @@ int guardarProductos(Comida productos[PRODUCTOS_LIMITE])
     fclose(fProductos);
     return 0;
 }
+
+int buscarPosProducto(Comida productos[PRODUCTOS_LIMITE], int size, int id)
+{
+    for (int i = 0; i < size; i++)
+    {
+        if (productos[i].id == id)
+        {
+            return i;
+        }
+    }
+    printf("No se pudo encontrar el producto en buscarPosProducto");
+    return -1;
+}

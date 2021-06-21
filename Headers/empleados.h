@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include "utils.h"
 #include "menu.h"
 
 //contraseña duenño
