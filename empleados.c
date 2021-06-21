@@ -124,7 +124,12 @@ void mostrarEmpleado(Empleado empleados)
     printf("                          |                                                    Gulyx      |\n");
     printf("                          | ID del empleado: %i                                            \n", empleados.id);
     printf("                          |                                                               |\n");
-    printf("                          |Ingrese SOLO el nombre: %s                                     \n", empleados.nombre);
+    printf("                          |Ingrese SOLO el nombre: %s", empleados.nombre);
+    for (int i = strlen(empleados.nombre); i < 37; i++)
+    {
+        printf(" ");
+    }
+    printf("|\n");
     printf("                          |                                                               |\n");
     printf("                          |Ingrese el apellido: %s                                        \n", empleados.apellido);
     printf("                          |                                                               |\n");
