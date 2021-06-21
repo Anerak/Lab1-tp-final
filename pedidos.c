@@ -11,3 +11,10 @@ void mostrarPedido(Pedido pedido)
     }
     printf("Total: %.2f\n", suma);
 }
+
+void borrarPedido(Pedido *pedido) {
+    pedido->id = 0;
+    pedido->activo = 0;
+    free(pedido->items);
+    pedido->cantItems = 0;
+}

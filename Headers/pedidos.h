@@ -7,3 +7,7 @@ typedef struct Pedido
     int cantItems;
     Comida items[30];
 } Pedido;
+
+void mostrarPedido(Pedido pedido);
+
+void borrarPedido(Pedido *pedido);
