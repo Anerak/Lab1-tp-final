@@ -40,7 +40,7 @@ int productosPrueba(Comida productos[])
     }
 
     printf("\nProductos cargados\n");
-    return 1;
+    return size;
 }
 
 int agregarProducto(Comida *producto, char nombre[40], char detalles[40], float precio, int id, int comidaTipo, int comidaSubcategoria)

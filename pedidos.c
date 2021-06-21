@@ -15,6 +15,5 @@ void mostrarPedido(Pedido pedido)
 void borrarPedido(Pedido *pedido) {
     pedido->id = 0;
     pedido->activo = 0;
-    free(pedido->items);
     pedido->cantItems = 0;
 }
