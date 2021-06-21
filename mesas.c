@@ -106,3 +106,19 @@ void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa)
     } while (seguir == 's');
     mesa->cantOrd++;
 }
+void restablecerMesas(Mesa mesas[])
+{
+    for (int i = 0; i < CANT_MESA; i++)
+    {
+        vaciarMesa(&mesas[i]);
+    }
+
+}
+void vaciarMesa (Mesa *mesa)
+{
+
+    desocuparMesa(mesa);
+    borrarPedido(mesa->pedidos);
+    mesa->cantOrd=0;
+
+}

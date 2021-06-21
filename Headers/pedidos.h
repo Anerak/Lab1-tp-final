@@ -1,3 +1,4 @@
+#include "stdlib.h"
 #include "productos.h"
 
 typedef struct Pedido
