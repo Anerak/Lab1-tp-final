@@ -1,5 +1,6 @@
 #include "Headers\\empleados.h"
 
+//Estructura agrega empleados en casos de gerentes y dueños
 Empleado agregarEmpl(int rolValido)
 {
     system("cls");
@@ -57,6 +58,7 @@ Empleado agregarEmpl(int rolValido)
     return aux;
 }
 
+//Lee el archivo donde se guardan empleados y los muestra
 void mostrarArchEmpl(int rolValido)
 {
     system("cls");
@@ -85,6 +87,8 @@ void mostrarArchEmpl(int rolValido)
         printf("Error al abrir el archivo\n");
     }
 }
+
+//Comprueba que el id random no pertenezca a un id ya creado
 int comprobarId(int idrand)
 {
     FILE *archi = fopen(datosempleados, "rb");
@@ -105,6 +109,8 @@ int comprobarId(int idrand)
 
     return flag;
 }
+
+//Hace un numero random
 int idRandom()
 {
     int numrand = 0;
@@ -120,6 +126,8 @@ int idRandom()
 
     return numrand;
 }
+
+//Muestra un empleado ya cargado
 void mostrarEmpleado(Empleado empleados)
 {
     int roles = 0;
@@ -158,6 +166,8 @@ void mostrarEmpleado(Empleado empleados)
     printf("                          |                                                               |\n");
     printf("                          '---------------------------------------------------------------'\n");
 }
+
+//Carga la estructura de empleados al archivo
 void cargEstrucYarchi(int rolValido)
 {
     char seguir = 's';
@@ -171,6 +181,8 @@ void cargEstrucYarchi(int rolValido)
         scanf("%c", &seguir);
     }
 }
+
+//Agrega los empleados al archivo
 void addEmpFile(Empleado empleados)
 {
     FILE *archi;
@@ -187,6 +199,8 @@ void addEmpFile(Empleado empleados)
         fclose(archi);
     }
 }
+
+//Comprueba que la contraseña ingresada sea la correcta, sino te devuelve al inicio
 int comprobarPass(int tipoUsuario)
 {
 
@@ -243,6 +257,7 @@ int comprobarPass(int tipoUsuario)
     return 0;
 }
 
+//Luego de ingresar la contraseña correctamente te ingresa al switch del usuario seleccionado (dueño, gerente,cajero)
 int SeleccionUsuario()
 {
     char password[9];
@@ -289,6 +304,7 @@ int SeleccionUsuario()
     return 0;
 }
 
+//Opciones validas para ejecutar como dueño
 void menuPrincipalDuenio()
 {
     int op = 0;
@@ -320,6 +336,8 @@ void menuPrincipalDuenio()
 
     } while (op != 0);
 }
+
+//Opciones validas para ejecutar como gerente
 void menuPrincipalGerente()
 {
     int op = 0;
@@ -350,6 +368,7 @@ void menuPrincipalGerente()
 }
 
 // Menu y switch de opciones para empleados
+//Menu para ingresar, eliminar o mirar empleados, segun el rol valido podes mirar gerentes o no
 void menu2duenio(int rolValido)
 {
     int op = 0;
@@ -408,6 +427,7 @@ void menu2duenio(int rolValido)
     }
 }*/
 
+//Busca un empleado a traves del ID usando el comprobarID
 int buscarEmpleadoID(int idrecibido)
 {
     int idbuscado = 0;
@@ -429,6 +449,8 @@ int buscarEmpleadoID(int idrecibido)
     }
     return flag;
 }
+
+//Elimina un empleado al recibir su ID por parametro
 void elimiEmpArchi(int idrecibido)
 {
     int flag = 0;
@@ -451,7 +473,7 @@ void elimiEmpArchi(int idrecibido)
     fwrite(&aux, sizeof(Empleado), 1, archi);
     fclose(archi);
 }
-
+//Funcion completa de eliminar empleado
 void elimiYmostrarEmp(int rolValido)
 {
     int idrecibido = 0;
