@@ -24,8 +24,5 @@ void restablecerMesas(Mesa mesas[]);
 void vaciarMesa(Mesa *mesa);
 int elegirMesa(Mesa mesas[]);
 int cobrarMesa(Mesa mesa);
-//void menuMesas();
 void initFuncionesMesas();
 void mesasMenuFunciones(Comida productos[PRODUCTOS_LIMITE], int size, Mesa mesas[CANT_MESA]);
-
-void funcionesMesas();

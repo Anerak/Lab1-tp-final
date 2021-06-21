@@ -346,7 +346,7 @@ void mostrarMenu()
     printf("                          |                                                               |\n");
     printf("                          |                          1-Duenio                             |\n");
     printf("                          |                          2-Gerente                            |\n");
-    printf("                          |                          3-Cajero                             |\n");
+    //printf("                          |                          3-Cajero                             |\n");
     printf("                          |                                                               |\n");
     printf("                          '---------------------------------------------------------------'\n");
 }

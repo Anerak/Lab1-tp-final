@@ -90,13 +90,12 @@ void mostrarArchVenta(Venta unaVenta)
 {
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    system("cls");
-    printf("\n\n\n\n\n\n\n\n");
+    printf("\n\n\n\n\n");
     printf("                          .-----------------------------------.\n");
     printf("                          |                        Gulyx      |\n");
-    printf("                          |       %d-%02d-%02d %02d:%02d:%02d |\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    printf("                          |       %d-%02d-%02d %02d:%02d:%02d \n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
     printf("                          |                                   |\n");
-    printf("                          | ID DE LA VENTA: %d                 \n");
+    printf("                          | ID DE LA VENTA: %d                 \n", unaVenta.id);
     printf("                          |                                   |\n");
     printf("                          | MONTO: %d                          \n", unaVenta.monto);
     printf("                          |                                   |\n");
@@ -132,7 +131,7 @@ void totalVentas()
         }
         fclose(archi);
     }
-    printf("El total de las ventas es: %d", acumuladorVentas);
+    printf("\nEl total de las ventas es: %d\n", acumuladorVentas);
     system("pause");
 }
 

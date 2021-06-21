@@ -115,15 +115,6 @@ void vaciarMesa(Mesa *mesa)
     mesa->cantOrd = 0;
 }
 
-/*void menuMesas()
-{
-    printf("1) Mostrar mesa\n");
-    printf("2) Ocupar mesa\n");
-    printf("3) Tomar orden mesa\n");
-    printf("4) Cobrar mesa/desocupar\n");
-    printf("0) Volver a menu inicial\n");
-}*/
-
 void initFuncionesMesas()
 {
     system("cls");
@@ -143,6 +134,7 @@ void initFuncionesMesas()
 void mesasMenuFunciones(Comida productos[PRODUCTOS_LIMITE], int size, Mesa mesas[CANT_MESA])
 {
     int op = 0;
+    int aux = 0;
     do
     {
         menuMesa();
@@ -161,7 +153,9 @@ void mesasMenuFunciones(Comida productos[PRODUCTOS_LIMITE], int size, Mesa mesas
             ordenMesa(productos, size, &mesas[elegirMesa(mesas)]);
             break;
         case 4:
-
+            aux = elegirMesa(mesas);
+            cargarVentaArchivo(cargaVenta(cobrarMesa(mesas[aux])));
+            vaciarMesa(&mesas[aux]);
             break;
         case 0:
             return;
@@ -179,91 +173,8 @@ int elegirMesa(Mesa mesas[CANT_MESA])
     printf("\nElija una mesa\n");
     mostrarMesas(mesas);
     scanf("%d", &mesaId);
+    mesaId -= 1;
     return mesaId;
-}
-
-void funcionesMesas()
-{
-    system("cls");
-    int idMesa = 0;
-    char nuevaMesa = 's';
-    int opciones = 0;
-    Comida productos[PRODUCTOS_LIMITE];
-    int productosCargados = 0;
-    productosCargados = productosPrueba(productos);
-
-    Mesa mesas[CANT_MESA];
-
-    inicMesas(mesas);
-
-    do
-    {
-        //menuMesas();
-        scanf("%d", &opciones);
-        switch (opciones)
-        {
-        case 1:
-            mostrarMesas(mesas); //muestra mesas todas vacias
-            break;
-
-        case 2:
-            mostrarMesas(mesas);
-            printf("Alguna mesa para por ser ocupada S/N\n");
-            fflush(stdin);
-            scanf("%c", &nuevaMesa);
-            if (nuevaMesa == 's')
-            {
-                printf("Que mesa esta por ser ocupada?\n");
-
-                scanf("%d", &idMesa);
-
-                int posMesa = buscarMesa(mesas, idMesa);
-                if (posMesa > -1)
-                {
-                    Mesa tmpMesa = mesas[posMesa];
-                    Pedido tmpPedido;
-
-                    ocuparMesa(&tmpMesa); //ocupa mesa
-                }
-                break;
-
-            case 3:
-                if (posMesa > -1)
-                {
-                    Mesa tmpMesa = mesas[posMesa];
-
-                    ordenMesa(productos, productosCargados, &mesas[posMesa]); //&tmpMesa); // mostrar carta , ordena mesa
-
-                    mostrarPedido(tmpMesa.pedidos[tmpMesa.cantOrd - 1]);
-                }
-                break;
-
-            case 4:
-                if (posMesa > -1)
-                {
-                    Mesa tmpMesa = mesas[posMesa];
-                    Pedido tmpPedido; // mostrar carta , ordena mesa
-
-                    mesas[posMesa] = tmpMesa;
-
-                    mostrarMesas(mesas);
-                    //  TO DO: guardar venta
-                    vaciarMesa(&mesas[posMesa]); //cobrar mesa, limpiarmesa(desocupar) mesa.
-                }
-                break;
-
-            case 5:
-                nuevaMesa = 'm';
-                break;
-            default:
-                break;
-            }
-        }
-
-        system("pause");
-        system("cls");
-
-    } while (nuevaMesa == 's');
 }
 
 int cobrarMesa(Mesa mesa)
@@ -271,7 +182,7 @@ int cobrarMesa(Mesa mesa)
     int total = 0;
     for (int i = 0; i < mesa.cantOrd; i++)
     {
-        for (int x = 0; x < mesa.pedidos[i].cantItems; i++)
+        for (int x = 0; x < mesa.pedidos[i].cantItems; x++)
         {
             total += (int)mesa.pedidos[i].items[x].precio;
         }

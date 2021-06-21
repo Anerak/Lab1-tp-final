@@ -325,7 +325,7 @@ void menuPrincipalDuenio()
             menu2duenio(1);
             break;
         case 2:
-            printf("Missing");
+            totalVentas();
             break;
         case 3:
             initFuncionesMesas();
