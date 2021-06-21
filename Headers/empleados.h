@@ -37,7 +37,7 @@ void mostrarEmpleado(Empleado empleados);
 void cargEstrucYarchi(int rolValido);
 void addEmpFile(Empleado empleados);
 void ingelempSwitch(int op);
-void menu2duenio(int op);
+void menu2duenio();
 int SeleccionUsuario();
 int comprobarPass(int tipoUsuario);
 void elimiYmostrarEmp();
