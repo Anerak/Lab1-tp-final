@@ -125,6 +125,10 @@ void mostrarEmpleado(Empleado empleados)
     printf("                          | ID del empleado: %i                                            \n", empleados.id);
     printf("                          |                                                               |\n");
     printf("                          |Ingrese SOLO el nombre: %s", empleados.nombre);
+    for (int i = strlen(empleados.nombre); i < 37; i++)
+    {
+        printf(" ");
+    }
     printf("|\n");
     printf("                          |                                                               |\n");
     printf("                          |Ingrese el apellido: %s                                        \n", empleados.apellido);
@@ -275,24 +279,37 @@ int SeleccionUsuario()
     return 0;
 }
 
-void menu2duenio(int op)
+void menu2duenio()
 {
-    int opelegida = 0;
+    int op = 0;
+
+    system("cls");
     do
+    {
+        // Menu de opciones de empleados
+        ingEliEmpleado();
+        gotoxy(55, 9);
+        scanf("%d", &op);
+
         switch (op)
         {
         case 1:
-            ingEliEmpleado();
-            gotoxy(55, 9);
-            scanf("%d", &opelegida);
-            ingelempSwitch(opelegida);
-
+            mostrarArchEmpl();
+            break;
+        case 2:
+            cargEstrucYarchi(1);
+            break;
+        case 3:
+            elimiYmostrarEmp();
+            break;
+        case 4:
+            return;
             break;
         default:
             break;
         }
-
-    while (op != 4);
+        op = 0;
+    } while (op < 1 || op > 4);
 }
 
 void ingelempSwitch(int op)
