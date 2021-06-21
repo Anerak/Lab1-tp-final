@@ -67,25 +67,25 @@ void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa)
     do
     {
         printf("carta\n");
-        mostrarCarta(productos,size);
+        mostrarCarta(productos, size);
         printf("Que producto desea ingresar?\n");
 
         fflush(stdin);
         scanf("%d", &idProducto);
 
         posProducto = buscarPosProducto(productos, size, idProducto);
-            if (posProducto > -1)
-            {
-                mesa->pedidos[mesa->cantOrd].items[mesa->pedidos->cantItems] = productos[posProducto];
-                tempComida = productos[posProducto];
-                printf("\nAgregando %s %s\n", tempComida.nombre, tempComida.detalles);
-                temp->items[temp->cantItems] = tempComida;
-                temp->cantItems++;
-            }
-            else
-            {
-                printf("\nNo se pudo encontrar el producto indicado\n");
-            } 
+        if (posProducto > -1)
+        {
+            mesa->pedidos[mesa->cantOrd].items[mesa->pedidos->cantItems] = productos[posProducto];
+            tempComida = productos[posProducto];
+            printf("\nAgregando %s %s\n", tempComida.nombre, tempComida.detalles);
+            temp->items[temp->cantItems] = tempComida;
+            temp->cantItems++;
+        }
+        else
+        {
+            printf("\nNo se pudo encontrar el producto indicado\n");
+        }
         printf("Desea continuar ingresando pedidos? s/n \n");
         fflush(stdin);
         scanf("%c", &seguir);
@@ -99,15 +99,13 @@ void restablecerMesas(Mesa mesas[])
     {
         vaciarMesa(&mesas[i]);
     }
-
 }
-void vaciarMesa (Mesa *mesa)
+void vaciarMesa(Mesa *mesa)
 {
 
     desocuparMesa(mesa);
     borrarPedido(mesa->pedidos);
-    mesa->cantOrd=0;
-
+    mesa->cantOrd = 0;
 }
 void menuMesas()
 {
@@ -117,87 +115,88 @@ void menuMesas()
     printf("4) Cobrar mesa/desocupar\n");
     printf("5) Volver a menu inicial\n");
 }
-void funcionesMesas ()
+void funcionesMesas()
 {
     int idMesa = 0;
     char nuevaMesa = 's';
-    int opciones=0;
+    int opciones = 0;
     Comida productos[PRODUCTOS_LIMITE];
     int productosCargados = 0;
-    
+
     productosCargados = productosPrueba(productos);
     if (productosCargados == -1)
     {
         printf("Error cargando productos!");
     }
     Mesa mesas[CANT_MESA];
-    
+
     inicMesas(mesas);
 
-   do{
-     menu();
-       scanf("%d",&opciones);
-       switch (opciones)
-       {   case 1: 
+    do
+    {
+        menuMesas();
+        scanf("%d", &opciones);
+        switch (opciones)
+        {
+        case 1:
             mostrarMesas(mesas); //muestra mesas todas vacias
             break;
-            
-            case 2:
-                    mostrarMesas(mesas);
+
+        case 2:
+            mostrarMesas(mesas);
             printf("Alguna mesa para por ser ocupada S/N\n");
             fflush(stdin);
-            scanf("%c",&nuevaMesa);
-                if (nuevaMesa == 's')
+            scanf("%c", &nuevaMesa);
+            if (nuevaMesa == 's')
+            {
+                printf("Que mesa esta por ser ocupada?\n");
+
+                scanf("%d", &idMesa);
+
+                int posMesa = buscarMesa(mesas, idMesa);
+                if (posMesa > -1)
                 {
-                    printf("Que mesa esta por ser ocupada?\n");
+                    Mesa tmpMesa = mesas[posMesa];
+                    Pedido tmpPedido;
 
-                    scanf("%d", &idMesa);
-
-                    int posMesa = buscarMesa(mesas, idMesa);
-                    if (posMesa > -1)
-                    {
-                        Mesa tmpMesa = mesas[posMesa];
-                        Pedido tmpPedido;
-                        
-                        ocuparMesa(&tmpMesa); //ocupa mesa
-                    }                          
-                break;
-                
-                case 3:    
-                    if (posMesa > -1)
-                    {
-                        Mesa tmpMesa = mesas[posMesa];
-                        Pedido tmpPedido;
-                        ordenMesa(productos, productosCargados, &tmpMesa); // mostrar carta , ordena mesa
-                        
-                        mostrarPedido(tmpMesa.pedidos[tmpMesa.cantOrd - 1]); 
-                    }
-                    break;
-                
-                case 4:
-                    if (posMesa > -1)
-                    {
-                        Mesa tmpMesa = mesas[posMesa];
-                        Pedido tmpPedido;  // mostrar carta , ordena mesa
-                    
-                        mesas[posMesa]= tmpMesa;
-
-                        mostrarMesas(mesas);
-                        
-                        vaciarMesa(&mesas[posMesa]);   //cobrar mesa, limpiarmesa(desocupar) mesa.
-                        mostrarPedido(mesas[posMesa].pedidos[0]);
-                    }
-                    break;
-                
-                case 5:
-                        nuevaMesa ='m';
-                    break;
-        
+                    ocuparMesa(&tmpMesa); //ocupa mesa
                 }
-        }       
-    
+                break;
+
+            case 3:
+                if (posMesa > -1)
+                {
+                    Mesa tmpMesa = mesas[posMesa];
+                    Pedido tmpPedido;
+                    ordenMesa(productos, productosCargados, &tmpMesa); // mostrar carta , ordena mesa
+
+                    mostrarPedido(tmpMesa.pedidos[tmpMesa.cantOrd - 1]);
+                }
+                break;
+
+            case 4:
+                if (posMesa > -1)
+                {
+                    Mesa tmpMesa = mesas[posMesa];
+                    Pedido tmpPedido; // mostrar carta , ordena mesa
+
+                    mesas[posMesa] = tmpMesa;
+
+                    mostrarMesas(mesas);
+
+                    vaciarMesa(&mesas[posMesa]); //cobrar mesa, limpiarmesa(desocupar) mesa.
+                    mostrarPedido(mesas[posMesa].pedidos[0]);
+                }
+                break;
+
+            case 5:
+                nuevaMesa = 'm';
+                break;
+            }
+        }
+
         system("pause");
         system("cls");
-    
-    }while (nuevaMesa == 's');
+
+    } while (nuevaMesa == 's');
 }
