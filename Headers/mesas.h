@@ -20,3 +20,5 @@ void mostrarMesas(Mesa mesas[]);
 void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa);
 void restablecerMesas(Mesa mesas[]);
 void vaciarMesa (Mesa *mesa);
+void menuMesas();
+void funcionesMesas ();
