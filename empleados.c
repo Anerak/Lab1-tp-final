@@ -74,6 +74,7 @@ void mostrarArchEmpl()
             }
         }
         fclose(archi);
+        system("pause");
     }
     else
     {
@@ -124,7 +125,12 @@ void mostrarEmpleado(Empleado empleados)
     printf("                          |                                                    Gulyx      |\n");
     printf("                          | ID del empleado: %i                                            \n", empleados.id);
     printf("                          |                                                               |\n");
-    printf("                          |Ingrese SOLO el nombre: %s                                     \n", empleados.nombre);
+    printf("                          |Ingrese SOLO el nombre: %s", empleados.nombre);
+    for (int i = strlen(empleados.nombre); i < 39; i++)
+    {
+        printf(" ");
+    }
+    printf("|\n");
     printf("                          |                                                               |\n");
     printf("                          |Ingrese el apellido: %s                                        \n", empleados.apellido);
     printf("                          |                                                               |\n");
@@ -274,24 +280,36 @@ int SeleccionUsuario()
     return 0;
 }
 
-void menu2duenio(int op)
+void menu2duenio()
 {
-    int opelegida = 0;
+    int op = 0;
+
+    system("cls");
     do
+    {
+        // Menu de opciones de empleados
+        ingEliEmpleado();
+        gotoxy(55, 9);
+        scanf("%d", &op);
+
         switch (op)
         {
         case 1:
-            ingEliEmpleado();
-            gotoxy(55, 9);
-            scanf("%d", &opelegida);
-            ingelempSwitch(opelegida);
-
+            mostrarArchEmpl();
+            break;
+        case 2:
+            cargEstrucYarchi(1);
+            break;
+        case 3:
+            elimiYmostrarEmp();
+            break;
+        case 4:
+            return;
             break;
         default:
             break;
         }
-
-    while (op != 4);
+    } while (op != 4);
 }
 
 void ingelempSwitch(int op)
