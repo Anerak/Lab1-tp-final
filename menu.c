@@ -14,7 +14,7 @@ void mostrarLogo()
     printf("                                                                d8\'\n");
     printf("                                                               d8\'\n");
     printf("\n\n\n\n\n\n\n\n");
-    printf("                                                                                             Copyright ©2020 Gulyx\n");
+    printf("                                                                                             Copyright ©2021 Gulyx\n");
     printf("                                                                                              All rights reserved.\n");
 
     system("pause");
