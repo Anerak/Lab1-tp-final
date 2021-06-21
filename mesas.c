@@ -1,9 +1,6 @@
 #include "Headers\\mesas.h"
-void ocuparMesa(Mesa *mesa)
-{
 
-    mesa->ocupada = 1;
-}
+// Inicializa las mesas
 void inicMesas(Mesa mesas[])
 {
     for (int i = 0; i < CANT_MESA; i++)
@@ -15,6 +12,8 @@ void inicMesas(Mesa mesas[])
         mesas[i].cantOrd = 0;
     }
 }
+
+// Busca la mesa en el arreglo y devuelve la posicion
 int buscarMesa(Mesa mesas[], int id)
 {
 
@@ -28,11 +27,24 @@ int buscarMesa(Mesa mesas[], int id)
     printf("No se encontro la mesa\n");
     return -1;
 }
+
+// Ocupar la mesa elegida
+void ocuparMesa(Mesa *mesa)
+{
+    if (mesa->ocupada == 1)
+    {
+        return;
+    }
+    mesa->ocupada = 1;
+}
+
+// Desocupar mesa elegida
 void desocuparMesa(Mesa *mesa)
 {
 
     mesa->ocupada = 0;
 }
+// Mostrar todas las mesas
 void mostrarMesas(Mesa mesas[])
 {
     system("cls");
@@ -55,6 +67,7 @@ void mostrarMesas(Mesa mesas[])
     printf("\n\n");
 }
 
+// Toma la orden de la mesa
 void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa)
 {
     if (mesa->ocupada == 0)
@@ -68,8 +81,8 @@ void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa)
     char seguir = 's';
     temp = &mesa->pedidos[mesa->cantOrd];
     temp->cantItems = 0;
-    //mesa->pedidos[mesa->cantOrd] = temp;
     temp->id = mesa->cantOrd + 1;
+
     do
     {
         printf("carta\n");
@@ -82,6 +95,7 @@ void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa)
         posProducto = buscarPosProducto(productos, size, idProducto);
         if (posProducto > -1)
         {
+            // Accedemos al ultimo itenm del ultimo pedido de la mesa
             mesa->pedidos[mesa->cantOrd].items[mesa->pedidos->cantItems] = productos[posProducto];
             tempComida = productos[posProducto];
             printf("\nAgregando %s %s\n", tempComida.nombre, tempComida.detalles);
@@ -92,6 +106,7 @@ void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa)
         {
             printf("\nNo se pudo encontrar el producto indicado\n");
         }
+
         printf("Desea continuar ingresando pedidos? s/n \n");
         fflush(stdin);
         scanf("%c", &seguir);
@@ -106,6 +121,7 @@ void restablecerMesas(Mesa mesas[])
         vaciarMesa(&mesas[i]);
     }
 }
+// Vacia la mesa elegida
 void vaciarMesa(Mesa *mesa)
 {
 
@@ -114,6 +130,7 @@ void vaciarMesa(Mesa *mesa)
     mesa->cantOrd = 0;
 }
 
+// Inicializar las funciones de meses
 void initFuncionesMesas()
 {
     system("cls");
@@ -130,6 +147,7 @@ void initFuncionesMesas()
     mesasMenuFunciones(productos, productosCargados, mesas);
 }
 
+// Switch para el menu de opciones
 void mesasMenuFunciones(Comida productos[PRODUCTOS_LIMITE], int size, Mesa mesas[CANT_MESA])
 {
     int op = 0;
@@ -166,6 +184,7 @@ void mesasMenuFunciones(Comida productos[PRODUCTOS_LIMITE], int size, Mesa mesas
     } while (op != 0);
 }
 
+// Devolver posicion de mesa
 int elegirMesa(Mesa mesas[CANT_MESA])
 {
     int mesaId = 0;
@@ -178,6 +197,7 @@ int elegirMesa(Mesa mesas[CANT_MESA])
     return mesaId;
 }
 
+// Cobrar mesa devuelve el monto total de la mesa
 int cobrarMesa(Mesa mesa)
 {
     int total = 0;

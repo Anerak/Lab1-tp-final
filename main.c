@@ -24,7 +24,7 @@ int main()
     srand(time(NULL));
 
     int tipoUsuario = 0;
-
+    // Mostramos el logo al iniciar
     mostrarLogo();
     do
     {
@@ -35,7 +35,6 @@ int main()
     {
     case 1:
         menuPrincipalDuenio();
-        //menu2duenio();
         break;
     case 2:
         menuPrincipalGerente();
