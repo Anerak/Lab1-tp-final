@@ -74,6 +74,7 @@ void mostrarArchEmpl()
             }
         }
         fclose(archi);
+        system("pause");
     }
     else
     {
@@ -125,7 +126,7 @@ void mostrarEmpleado(Empleado empleados)
     printf("                          | ID del empleado: %i                                            \n", empleados.id);
     printf("                          |                                                               |\n");
     printf("                          |Ingrese SOLO el nombre: %s", empleados.nombre);
-    for (int i = strlen(empleados.nombre); i < 37; i++)
+    for (int i = strlen(empleados.nombre); i < 39; i++)
     {
         printf(" ");
     }
@@ -308,8 +309,7 @@ void menu2duenio()
         default:
             break;
         }
-        op = 0;
-    } while (op < 1 || op > 4);
+    } while (op != 4);
 }
 
 void ingelempSwitch(int op)

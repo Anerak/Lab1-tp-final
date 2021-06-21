@@ -45,5 +45,6 @@ int main()
         break;
     }
     printf("\nSaliendo. Gracias por usar el programa\n");
+    system("color");
     return 0;
 }
