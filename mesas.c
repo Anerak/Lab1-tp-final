@@ -44,11 +44,11 @@ void mostrarMesas(Mesa mesas[])
         }
         if (mesas[i].ocupada == 0)
         {
-            printf("\t%d", mesas[i].id);
+            printf("\t\t%d", mesas[i].id);
         }
         else
         {
-            printf("\t\b|%d|", mesas[i].id);
+            printf("\t\t\b|%d|", mesas[i].id);
         }
     }
     printf("\n");
