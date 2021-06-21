@@ -32,10 +32,9 @@ int productosPrueba(Comida productos[])
         {
             break;
         }
-        agregarProducto(&productos[i], nombres[i], detalles[i], precios[i], i+1, comidaTipo[i], comidaSubcategoria[i]);
+        agregarProducto(&productos[i], nombres[i], detalles[i], precios[i], i + 1, comidaTipo[i], comidaSubcategoria[i]);
     }
 
-    printf("\nProductos cargados\n");
     return size;
 }
 

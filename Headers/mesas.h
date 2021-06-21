@@ -1,4 +1,6 @@
 #include "pedidos.h"
+#include "menu.h"
+#include "ventas.h"
 
 typedef struct
 {
@@ -20,5 +22,10 @@ void mostrarMesas(Mesa mesas[]);
 void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa);
 void restablecerMesas(Mesa mesas[]);
 void vaciarMesa(Mesa *mesa);
-void menuMesas();
+int elegirMesa(Mesa mesas[]);
+int cobrarMesa(Mesa mesa);
+//void menuMesas();
+void initFuncionesMesas();
+void mesasMenuFunciones(Comida productos[PRODUCTOS_LIMITE], int size, Mesa mesas[CANT_MESA]);
+
 void funcionesMesas();

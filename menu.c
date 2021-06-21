@@ -139,11 +139,13 @@ void menuMesa()
     printf("                          .---------------------------------------------------------------.\n");
     printf("                          |  Seleccione una opcion:                       Gulyx           |\n");
     printf("                          |                                                               |\n");
-    printf("                          |  1-Ingresar productos                                         |\n");
-    printf("                          |  2-Editar productos                                           |\n");
-    printf("                          |  3-Cobrar Mesa                                                |\n");
-    printf("                          |  4-Cancelar Mesa                                              |\n");
-    printf("                          |  5-Volver al menu de Mesas                                    |\n");
+    printf("                          |  1-Mostrar mesas                                              |\n");
+    printf("                          |  2-Ocupar mesa                                                |\n");
+    //printf("                          |  1-Ingresar productos                                         |\n");
+    //printf("                          |  2-Editar productos                                           |\n");
+    printf("                          |  3-Tomar orden                                                |\n");
+    printf("                          |  4-Cobrar Mesa                                                |\n");
+    printf("                          |  0-Volver al menu de Mesas                                    |\n");
     printf("                          '---------------------------------------------------------------'\n");
 }
 void manejoMesas()

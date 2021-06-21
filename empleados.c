@@ -309,10 +309,10 @@ void menuPrincipalDuenio()
             menu2duenio(1);
             break;
         case 2:
-            funcionesMesas();
+            printf("Missing");
             break;
         case 3:
-            printf("");
+            initFuncionesMesas();
             break;
         default:
             break;
@@ -340,7 +340,7 @@ void menuPrincipalGerente()
             menu2duenio(0);
             break;
         case 2:
-            funcionesMesas();
+            initFuncionesMesas();
             break;
         default:
             break;

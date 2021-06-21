@@ -35,6 +35,7 @@ void desocuparMesa(Mesa *mesa)
 }
 void mostrarMesas(Mesa mesas[])
 {
+    system("cls");
     printf("Mesas disponibles\n\n");
     for (int i = 0; i < CANT_MESA; i++)
     {
@@ -52,9 +53,15 @@ void mostrarMesas(Mesa mesas[])
         }
     }
     printf("\n\n");
+    system("pause");
 }
+
 void ordenMesa(Comida productos[PRODUCTOS_LIMITE], int size, Mesa *mesa)
 {
+    if (mesa->ocupada == 0)
+    {
+        ocuparMesa(mesa);
+    }
     Pedido *temp;
     Comida tempComida;
     int categoria = 0, idProducto = 0;
@@ -107,34 +114,91 @@ void vaciarMesa(Mesa *mesa)
     borrarPedido(mesa->pedidos);
     mesa->cantOrd = 0;
 }
-void menuMesas()
+
+/*void menuMesas()
 {
     printf("1) Mostrar mesa\n");
     printf("2) Ocupar mesa\n");
     printf("3) Tomar orden mesa\n");
     printf("4) Cobrar mesa/desocupar\n");
-    printf("5) Volver a menu inicial\n");
+    printf("0) Volver a menu inicial\n");
+}*/
+
+void initFuncionesMesas()
+{
+    system("cls");
+    Comida productos[PRODUCTOS_LIMITE];
+    int productosCargados = productosPrueba(productos);
+    if (productosCargados == -1)
+    {
+        printf("Error cargando productos!");
+    }
+
+    Mesa mesas[CANT_MESA];
+    inicMesas(mesas);
+
+    mesasMenuFunciones(productos, productosCargados, mesas);
 }
+
+void mesasMenuFunciones(Comida productos[PRODUCTOS_LIMITE], int size, Mesa mesas[CANT_MESA])
+{
+    int op = 0;
+    do
+    {
+        menuMesa();
+        gotoxy(54, 9);
+        scanf("%d", &op);
+
+        switch (op)
+        {
+        case 1:
+            mostrarMesas(mesas);
+            break;
+        case 2:
+            ocuparMesa(&mesas[elegirMesa(mesas)]);
+            break;
+        case 3:
+            ordenMesa(productos, size, &mesas[elegirMesa(mesas)]);
+            break;
+        case 4:
+
+            break;
+        case 0:
+            return;
+            break;
+        default:
+            break;
+        }
+    } while (op != 0);
+}
+
+int elegirMesa(Mesa mesas[CANT_MESA])
+{
+    int mesaId = 0;
+    system("cls");
+    printf("\nElija una mesa\n");
+    mostrarMesas(mesas);
+    scanf("%d", &mesaId);
+    return mesaId;
+}
+
 void funcionesMesas()
 {
+    system("cls");
     int idMesa = 0;
     char nuevaMesa = 's';
     int opciones = 0;
     Comida productos[PRODUCTOS_LIMITE];
     int productosCargados = 0;
-
     productosCargados = productosPrueba(productos);
-    if (productosCargados == -1)
-    {
-        printf("Error cargando productos!");
-    }
+
     Mesa mesas[CANT_MESA];
 
     inicMesas(mesas);
 
     do
     {
-        menuMesas();
+        //menuMesas();
         scanf("%d", &opciones);
         switch (opciones)
         {
@@ -167,8 +231,8 @@ void funcionesMesas()
                 if (posMesa > -1)
                 {
                     Mesa tmpMesa = mesas[posMesa];
-                    Pedido tmpPedido;
-                    ordenMesa(productos, productosCargados, &tmpMesa); // mostrar carta , ordena mesa
+
+                    ordenMesa(productos, productosCargados, &mesas[posMesa]); //&tmpMesa); // mostrar carta , ordena mesa
 
                     mostrarPedido(tmpMesa.pedidos[tmpMesa.cantOrd - 1]);
                 }
@@ -183,14 +247,15 @@ void funcionesMesas()
                     mesas[posMesa] = tmpMesa;
 
                     mostrarMesas(mesas);
-
+                    //  TO DO: guardar venta
                     vaciarMesa(&mesas[posMesa]); //cobrar mesa, limpiarmesa(desocupar) mesa.
-                    mostrarPedido(mesas[posMesa].pedidos[0]);
                 }
                 break;
 
             case 5:
                 nuevaMesa = 'm';
+                break;
+            default:
                 break;
             }
         }
@@ -199,4 +264,17 @@ void funcionesMesas()
         system("cls");
 
     } while (nuevaMesa == 's');
+}
+
+int cobrarMesa(Mesa mesa)
+{
+    int total = 0;
+    for (int i = 0; i < mesa.cantOrd; i++)
+    {
+        for (int x = 0; x < mesa.pedidos[i].cantItems; i++)
+        {
+            total += (int)mesa.pedidos[i].items[x].precio;
+        }
+    }
+    return total;
 }
