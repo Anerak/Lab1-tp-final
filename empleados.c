@@ -67,9 +67,11 @@ void mostrarArchEmpl()
     {
         while (fread(&aux, sizeof(Empleado), 1, archi) > 0)
         {
-            if (aux.activo == 1)
-                ;
-            mostrarEmpleado(aux);
+
+            if (aux.activo != 0)
+            {
+                mostrarEmpleado(aux);
+            }
         }
         fclose(archi);
     }
@@ -78,34 +80,38 @@ void mostrarArchEmpl()
         printf("Error al abrir el archivo\n");
     }
 }
-void comprobarId(int idrand)
+int comprobarId(int idrand)
 {
     FILE *archi = fopen(datosempleados, "rb");
     Empleado aux;
     int flag = 0;
-    do
-    {
-        if (archi != NULL)
-        {
-            while (fread(&aux, sizeof(Empleado), 1, archi) > 0 && flag == 0)
-            {
-                if (aux.id == idrand)
-                {
-                    idrand++;
-                    flag = 1;
-                }
-            }
-            fclose(archi);
-        }
 
-    } while (flag == 1);
+    if (archi != NULL)
+    {
+        while (fread(&aux, sizeof(Empleado), 1, archi) > 0 && flag == 0)
+        {
+            if (aux.id == idrand)
+            {
+                flag = 1;
+            }
+        }
+        fclose(archi);
+    }
+
+    return flag;
 }
 int idRandom()
 {
+    int numrand = 0;
+    int comprobation = 0;
+    do
+    {
 
-    srand(time(NULL));
-    int numrand = 1 + rand() % 1000;
-    comprobarId(numrand);
+        numrand = 1 + rand() % 1000;
+
+        comprobation = comprobarId(numrand);
+
+    } while (comprobation == 1);
 
     return numrand;
 }
@@ -145,7 +151,7 @@ void cargEstrucYarchi(int rolValido)
     {
         aux = agregarEmpl(rolValido);
         addEmpFile(aux);
-        printf("Desea cargar otro empleado? s/n\n");
+        printf("\nDesea cargar otro empleado? s/n\n");
         fflush(stdin);
         scanf("%c", &seguir);
     }
@@ -201,6 +207,7 @@ int comprobarPass(int tipoUsuario)
             printf("Contrasena incorrecta");
             gotoxy(46, 13);
             system("pause");
+
             flag = 1;
         }
         break;
@@ -230,6 +237,7 @@ int comprobarPass(int tipoUsuario)
             printf("Contrasena incorrecta");
             gotoxy(46, 13);
             system("pause");
+
             flag = 1;
         }
 
@@ -258,6 +266,7 @@ int comprobarPass(int tipoUsuario)
             printf("Contrasena incorrecta");
             gotoxy(46, 13);
             system("pause");
+
             flag = 1;
         }
     }
@@ -274,58 +283,66 @@ void SeleccionUsuario(int tipoUsuario)
     int c = 0;
     int passcomprobation = 0;
     int opmenu2 = 0;
-    do
+
+    switch (tipoUsuario)
     {
-        switch (tipoUsuario)
+
+    case 1:
+        do
         {
-
-        case 1:
-
             system("cls");
             mostrarDuenio();
             gotoxy(65, 11);
             passcomprobation = comprobarPass(tipoUsuario);
-            do
-            {
-                gotoxy(52, 11);
-                scanf("%d", &opmenu2);
-                menu2duenio(opmenu2);
-            } while (opmenu2 != 0);
+        } while (passcomprobation == 1);
+        do
+        {
+            gotoxy(52, 11);
+            scanf("%d", &opmenu2);
+            menu2duenio(opmenu2);
+        } while (opmenu2 != 0);
 
-            break;
-        case 2:
-
+        break;
+    case 2:
+        do
+        {
             system("cls");
             mostrarGerente();
             gotoxy(65, 11);
+
             passcomprobation = comprobarPass(tipoUsuario);
-
-            break;
-        case 3:
-
+        } while (passcomprobation == 1);
+        break;
+    case 3:
+        do
+        {
             system("cls");
             mostrarCajero();
             gotoxy(65, 11);
-            passcomprobation = comprobarPass(tipoUsuario);
-            manejoMesas();
 
-            break;
-        }
-    } while (passcomprobation == 1);
+            passcomprobation = comprobarPass(tipoUsuario);
+        } while (passcomprobation == 1);
+        manejoMesas();
+
+        break;
+    }
 }
 void menu2duenio(int op)
 {
     int opelegida = 0;
-    switch (op)
-    {
-    case 1:
-        ingEliEmpleado();
-        gotoxy(55, 9);
-        scanf("%d", &opelegida);
-        ingelempSwitch(opelegida);
+    do
+        switch (op)
+        {
+        case 1:
+            ingEliEmpleado();
+            gotoxy(55, 9);
+            scanf("%d", &opelegida);
+            ingelempSwitch(opelegida);
 
-        break;
-    }
+            break;
+        }
+
+    while (op != 4);
 }
 
 void ingelempSwitch(int op)
@@ -342,5 +359,71 @@ void ingelempSwitch(int op)
         cargEstrucYarchi(1);
 
         break;
+    case 3:
+        elimiYmostrarEmp();
+
+        break;
+    case 4:
+        break;
+    default:
+        break;
     }
+}
+
+int buscarEmpleadoID(int idrecibido)
+{
+    int idbuscado = 0;
+    int flag = 0;
+    idbuscado = comprobarId(idrecibido);
+    if (idbuscado == 1)
+    {
+        printf("%d", idrecibido);
+        elimiEmpArchi(idrecibido);
+        system("cls");
+        printf("El empleado a sido eliminado\n");
+        system("pause");
+    }
+    else
+    {
+        printf("El id Ingresado no existe, porfavor ingrese uno existente o presione 0 para volver:\n");
+        system("pause");
+        flag = 1;
+    }
+    return flag;
+}
+void elimiEmpArchi(int idrecibido)
+{
+    int flag = 0;
+    FILE *archi;
+    archi = fopen(datosempleados, "r+b");
+    Empleado aux;
+
+    while (flag == 0 && fread(&aux, sizeof(Empleado), 1, archi) > 0)
+    {
+
+        if (aux.id == idrecibido)
+        {
+            printf("hola xd%s", aux.nombre);
+            flag = 1;
+        }
+    }
+
+    fseek(archi, (-1) * sizeof(Empleado), SEEK_CUR);
+    aux.activo = 0;
+    fwrite(&aux, sizeof(Empleado), 1, archi);
+    fclose(archi);
+}
+
+void elimiYmostrarEmp()
+{
+    int idrecibido = 0;
+    int flag = 0;
+    mostrarArchEmpl();
+    printf("Coloque el ID del empleado que desea eliminar:\n");
+    do
+    {
+
+        scanf("%d", &idrecibido);
+        flag = buscarEmpleadoID(idrecibido);
+    } while (flag == 1);
 }

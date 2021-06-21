@@ -31,7 +31,7 @@ typedef struct
 
 Empleado agregarEmpl(int rolValido);
 void mostrarArchEmpl();
-void comprobarId(int idrand);
+int comprobarId(int idrand);
 int idRandom();
 void mostrarEmpleado(Empleado empleados);
 void cargEstrucYarchi(int rolValido);
@@ -40,3 +40,6 @@ void ingelempSwitch(int op);
 void menu2duenio(int op);
 void SeleccionUsuario(int tipoUsuario);
 int comprobarPass(int tipoUsuario);
+void elimiYmostrarEmp();
+void elimiEmpArchi(int idrecibido);
+int buscarEmpleadoID(int idrecibido);

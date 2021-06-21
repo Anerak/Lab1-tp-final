@@ -7,7 +7,7 @@
 #include "Headers\\menu.h"
 #include "Headers\\empleados.h"
 
-//contraseña duenño
+//contraseña duenñon
 #define passOwner "admin1234"
 //contraseña gerente
 #define passManager "manag123"
@@ -20,6 +20,7 @@ int main()
 {
     Empleado empleados[50];
     system("COLOR B0");
+    srand(time(NULL));
 
     int tipoUsuario = 0;
     int devolUsuario = 0;
