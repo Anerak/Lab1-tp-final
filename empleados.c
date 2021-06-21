@@ -280,6 +280,36 @@ int SeleccionUsuario()
     return 0;
 }
 
+void menuPrincipalDuenio()
+{
+    int op = 0;
+
+    do
+    {
+        system("cls");
+        inicioDuenio();
+        gotoxy(55, 11);
+        scanf("%d", &op);
+
+        switch (op)
+        {
+        case 0:
+            return;
+            break;
+        case 1:
+            menu2duenio();
+            break;
+        case 2:
+            break;
+        case 3:
+            printf("");
+            break;
+        }
+
+    } while (op != 0);
+}
+
+// Menu y switch de opciones para empleados
 void menu2duenio()
 {
     int op = 0;
@@ -294,6 +324,9 @@ void menu2duenio()
 
         switch (op)
         {
+        case 0:
+            return;
+            break;
         case 1:
             mostrarArchEmpl();
             break;
@@ -302,9 +335,6 @@ void menu2duenio()
             break;
         case 3:
             elimiYmostrarEmp();
-            break;
-        case 4:
-            return;
             break;
         default:
             break;
