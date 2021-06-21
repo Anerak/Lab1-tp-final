@@ -435,7 +435,7 @@ int buscarEmpleadoID(int idrecibido)
     idbuscado = comprobarId(idrecibido);
     if (idbuscado == 1)
     {
-        printf("%d", idrecibido);
+
         elimiEmpArchi(idrecibido);
         system("cls");
         printf("El empleado a sido eliminado\n");

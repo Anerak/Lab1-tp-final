@@ -86,7 +86,7 @@ void cargarVentaArchivo(Venta cobro)
         printf("No se pudo abrir el archivo:\n");
     }
 }
-void mostrarVenta(Venta unaVenta)
+void mostrarArchVenta(Venta unaVenta)
 {
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
@@ -124,8 +124,11 @@ void totalVentas()
     {
         while (fread(&aux, sizeof(Venta), 1, archi) > 0)
         {
-            mostrarVenta(aux);
-            acumuladorVentas += aux.monto;
+            if (aux.activo != 0)
+            {
+                mostrarArchVenta(aux);
+                acumuladorVentas += aux.monto;
+            }
         }
         fclose(archi);
     }
@@ -134,3 +137,56 @@ void totalVentas()
 }
 
 //funcion eliminar venta ya hecha
+int buscarIDVenta(int idRecibido)
+{
+    int idbuscado = 0;
+    int flag = 0;
+    idbuscado = comprobarIdventa(idRecibido);
+    if (idbuscado == 1)
+    {
+        elimiVentArchi(idRecibido);
+        system("cls)");
+        printf("La venta a sido eliminada\n");
+        system("pause");
+    }
+    else
+    {
+        printf("El ID ingresado no pertenece a una venta existente o presione 0 para volver:");
+        system("pause");
+        flag = 1;
+    }
+    return flag;
+}
+
+void elimiVentArchi(int idRecibido)
+{
+    int flag = 0;
+    FILE *archi;
+    archi = fopen(ventasTotales, "r+b");
+    Venta aux;
+
+    while (flag == 0 && fread(&aux, sizeof(Venta), 1, archi) > 0)
+    {
+        if (aux.id == idRecibido)
+        {
+            flag = 1;
+        }
+    }
+    fseek(archi, (-1) * sizeof(Venta), SEEK_CUR);
+    aux.activo = 0;
+    fwrite(&aux, sizeof(Venta), 1, archi);
+    fclose(archi);
+}
+void elimiYmostrarVenta()
+{
+    int idrecibido = 0;
+
+    int flag = 0;
+    totalVentas();
+    printf("Ingrese el ID de la venta que desea eliminar: ");
+    do
+    {
+        scanf("%d", &idrecibido);
+        flag = buscarIDVenta(idrecibido);
+    } while (flag == 1);
+}
